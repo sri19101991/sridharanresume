@@ -1074,6 +1074,31 @@
       opacity: 1;
       transform: none;
     }
+
+    /* Icon Animations */
+    .glass-card:hover .skill-card-icon,
+    .glass-card:hover .ach-icon,
+    .glass-card:hover .contact-item-icon {
+      animation: iconPulse 0.6s ease-in-out infinite alternate;
+      border-color: var(--cyan);
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+      color: var(--cyan);
+    }
+
+    .social-item:hover .social-item-icon {
+      animation: iconPulse 0.6s ease-in-out infinite alternate;
+      text-shadow: 0 0 10px rgba(139, 92, 246, 0.8);
+    }
+
+    @keyframes iconPulse {
+      0% {
+        transform: scale(1) translateY(0);
+      }
+
+      100% {
+        transform: scale(1.15) translateY(-5px);
+      }
+    }
   </style>
 </head>
 
@@ -1201,9 +1226,15 @@
           </a>
         </div>
         <ul class="exp-list">
-          <li>Editing news, story-based, and montage videos for digital broadcast</li>
-          <li>Collaborating with reporters and production teams on daily content delivery</li>
-          <li>Handling end-to-end post-production workflow from raw footage to final output</li>
+          <li>Post-Production : Editing high-impact news, montage videos, and commercials.</li>
+          <li>Live Broadcast Management : Operating vMix and OBS Studio for real-time web TV broadcasts, ensuring
+            seamless transitions and technical stability.</li>
+          <li>Social Media Management : Managing and optimizing video content distribution across YouTube, Facebook, and
+            Twitter to maximize engagement.</li>
+          <li>Visual Marketing : Designing high-CTR (Click-Through Rate) custom thumbnails using Photoshop and AI tools
+            to boost viewership.</li>
+          <li>Collaboration : Working closely with news desks and producers to deliver breaking news under strict
+            deadlines.</li>
         </ul>
       </div>
     </div>
