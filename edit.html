@@ -1,0 +1,2304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Manager — VIDHI Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #12121a;
+      --bg-card: #1a1a28;
+      --bg-card-hover: #222236;
+      --bg-input: #16162a;
+      --border: #2a2a40;
+      --border-focus: #6366f1;
+      --text-primary: #f0f0f5;
+      --text-secondary: #9898b0;
+      --text-muted: #5a5a7a;
+      --accent: #6366f1;
+      --accent-glow: rgba(99, 102, 241, 0.25);
+      --cyan: #22d3ee;
+      --emerald: #34d399;
+      --rose: #f43f5e;
+      --amber: #f59e0b;
+      --rose-glow: rgba(244, 63, 94, 0.2);
+      --emerald-glow: rgba(52, 211, 153, 0.2);
+      --radius: 12px;
+      --radius-sm: 8px;
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ─── Background Glow ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -30%;
+      left: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -20%;
+      right: -10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(34, 211, 238, 0.06) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── Layout ─── */
+    .app-container {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 24px 60px;
+    }
+
+    /* ─── Header ─── */
+    .admin-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .admin-header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .admin-logo {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, var(--accent), var(--cyan));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 800;
+      color: white;
+      box-shadow: 0 0 24px var(--accent-glow);
+    }
+
+    .admin-title {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .admin-subtitle {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    /* ─── Buttons ─── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition);
+      text-decoration: none;
+    }
+
+    .btn svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #818cf8);
+      color: white;
+      box-shadow: 0 4px 16px var(--accent-glow);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 24px var(--accent-glow);
+    }
+
+    .btn-secondary {
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--accent);
+    }
+
+    .btn-danger {
+      background: rgba(244, 63, 94, 0.12);
+      color: var(--rose);
+      border: 1px solid rgba(244, 63, 94, 0.2);
+    }
+
+    .btn-danger:hover {
+      background: rgba(244, 63, 94, 0.2);
+    }
+
+    .btn-success {
+      background: rgba(52, 211, 153, 0.12);
+      color: var(--emerald);
+      border: 1px solid rgba(52, 211, 153, 0.2);
+    }
+
+    .btn-success:hover {
+      background: rgba(52, 211, 153, 0.2);
+    }
+
+    .btn-sm {
+      padding: 6px 14px;
+      font-size: 12px;
+    }
+
+    .btn-icon {
+      padding: 8px;
+      width: 36px;
+      height: 36px;
+      justify-content: center;
+    }
+
+    /* ─── Stats Bar ─── */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transition: all var(--transition);
+    }
+
+    .stat-card:hover {
+      border-color: var(--accent);
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), var(--bg-card-hover));
+      box-shadow: 0 4px 16px rgba(99, 102, 241, 0.15);
+      transform: translateY(-3px);
+    }
+
+    .stat-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .stat-icon.purple {
+      background: rgba(99, 102, 241, 0.15);
+    }
+
+    .stat-icon.cyan {
+      background: rgba(34, 211, 238, 0.15);
+    }
+
+    .stat-icon.emerald {
+      background: rgba(52, 211, 153, 0.15);
+    }
+
+    .stat-icon.amber {
+      background: rgba(245, 158, 11, 0.15);
+    }
+
+    .stat-icon.blue {
+      background: rgba(59, 130, 246, 0.15);
+    }
+
+    .stat-icon.pink {
+      background: rgba(236, 72, 153, 0.15);
+    }
+
+    .stat-value {
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    /* ─── Project List ─── */
+    .projects-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .projects-title {
+      font-size: 17px;
+      font-weight: 600;
+    }
+
+    .project-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .project-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 16px;
+      transition: all var(--transition);
+      cursor: grab;
+    }
+
+    .project-item:hover {
+      border-color: var(--accent);
+      background: linear-gradient(90deg, rgba(99, 102, 241, 0.08) 0%, var(--bg-card-hover) 100%);
+      box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.2), 0 4px 20px rgba(99, 102, 241, 0.1);
+      transform: translateX(4px);
+    }
+
+    .project-item.dragging {
+      opacity: 0.5;
+      border-color: var(--accent);
+    }
+
+    .project-thumb {
+      width: 100px;
+      height: 60px;
+      border-radius: var(--radius-sm);
+      object-fit: cover;
+      border: 1px solid var(--border);
+      background: var(--bg-input);
+    }
+
+    .project-info {
+      min-width: 0;
+    }
+
+    .project-info h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .project-meta {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .project-badge {
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 100px;
+      font-weight: 500;
+    }
+
+    .badge-category {
+      background: rgba(99, 102, 241, 0.15);
+      color: #a5b4fc;
+    }
+
+    .badge-source {
+      background: rgba(244, 63, 94, 0.12);
+      color: #fda4af;
+    }
+
+    .badge-duration {
+      background: rgba(245, 158, 11, 0.12);
+      color: #fcd34d;
+    }
+
+    .project-actions {
+      display: flex;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    /* ─── Empty State ─── */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      background: var(--bg-card);
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+    }
+
+    .empty-state-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+      opacity: 0.4;
+    }
+
+    .empty-state h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .empty-state p {
+      color: var(--text-secondary);
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    /* ─── Modal ─── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 40px 20px;
+      overflow-y: auto;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+      animation: fadeIn 0.2s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .modal {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 640px;
+      padding: 32px;
+      position: relative;
+      animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .modal-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .modal-title span {
+      color: var(--accent);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      transition: all var(--transition);
+    }
+
+    .modal-close:hover {
+      background: var(--rose);
+      color: white;
+      border-color: var(--rose);
+    }
+
+    /* ─── Form ─── */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .form-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      font-family: inherit;
+      font-size: 14px;
+      color: var(--text-primary);
+      transition: all var(--transition);
+      outline: none;
+    }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+
+    .form-input:hover,
+    .form-select:hover,
+    .form-textarea:hover {
+      border-color: rgba(99, 102, 241, 0.5);
+      background: rgba(22, 22, 42, 0.9);
+    }
+
+    .form-input::placeholder,
+    .form-textarea::placeholder {
+      color: var(--text-muted);
+    }
+
+    .form-select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%239898b0' viewBox='0 0 24 24'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 32px;
+    }
+
+    .form-select option {
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+    }
+
+    .form-textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    .form-row-radio {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid transparent;
+      transition: all var(--transition);
+    }
+
+    .radio-option:hover {
+      background: rgba(99, 102, 241, 0.08);
+      border-color: rgba(99, 102, 241, 0.3);
+      color: var(--accent);
+    }
+
+    .radio-option input[type="radio"] {
+      accent-color: var(--accent);
+      width: 16px;
+      height: 16px;
+    }
+
+    .form-hint {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .form-divider {
+      grid-column: 1 / -1;
+      height: 1px;
+      background: var(--border);
+      margin: 4px 0;
+    }
+
+    .form-section-label {
+      grid-column: 1 / -1;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 4px;
+    }
+
+    .thumb-preview {
+      grid-column: 1 / -1;
+      width: 100%;
+      max-width: 320px;
+      aspect-ratio: 16/9;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-input);
+      object-fit: cover;
+      display: none;
+    }
+
+    .thumb-preview.visible {
+      display: block;
+    }
+
+    .form-actions {
+      grid-column: 1 / -1;
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      margin-top: 8px;
+    }
+
+    /* ─── Code Modal ─── */
+    .code-output {
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 12px;
+      line-height: 1.6;
+      color: #c4c4e0;
+      max-height: 400px;
+      overflow-y: auto;
+      white-space: pre;
+      word-break: break-all;
+      overflow-wrap: break-word;
+      white-space: pre-wrap;
+    }
+
+    .code-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+      justify-content: flex-end;
+    }
+
+    /* ─── Toast ─── */
+    .toast-container {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      z-index: 2000;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .toast {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 12px 20px;
+      font-size: 13px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      animation: toastIn 0.3s ease;
+      min-width: 260px;
+    }
+
+    .toast.success {
+      border-left: 3px solid var(--emerald);
+    }
+
+    .toast.error {
+      border-left: 3px solid var(--rose);
+    }
+
+    .toast.info {
+      border-left: 3px solid var(--accent);
+    }
+
+    .toast-icon {
+      font-size: 16px;
+    }
+
+    @keyframes toastIn {
+      from {
+        opacity: 0;
+        transform: translateX(40px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    /* ─── Confirm Dialog ─── */
+    .confirm-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 1500;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .confirm-overlay.active {
+      display: flex;
+    }
+
+    .confirm-box {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      max-width: 380px;
+      text-align: center;
+      animation: slideUp 0.2s ease;
+    }
+
+    .confirm-box h3 {
+      font-size: 17px;
+      margin-bottom: 8px;
+    }
+
+    .confirm-box p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+    }
+
+    .confirm-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    /* ─── Drag Handle ─── */
+    .drag-handle {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      cursor: grab;
+      padding: 4px;
+      opacity: 0.3;
+      transition: opacity var(--transition);
+    }
+
+    .project-item:hover .drag-handle {
+      opacity: 0.7;
+    }
+
+    .drag-handle span {
+      width: 16px;
+      height: 2px;
+      background: var(--text-secondary);
+      border-radius: 1px;
+    }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 768px) {
+      .app-container {
+        padding: 20px 16px;
+      }
+
+      .admin-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project-item {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .project-thumb {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16/9;
+      }
+
+      .project-actions {
+        justify-content: flex-end;
+      }
+
+      .stats-bar {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .modal {
+        padding: 24px 16px;
+      }
+    }
+
+    /* ─── Scrollbar ─── */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--text-muted);
+    }
+
+    /* ─── Tabs ─── */
+    .tabs-nav {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: var(--radius-sm);
+      transition: all var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tab-btn:hover {
+      color: var(--text-primary);
+      background: var(--bg-card);
+      border-bottom: 2px solid rgba(99, 102, 241, 0.4);
+    }
+
+    .tab-btn.active {
+      color: white;
+      background: var(--accent);
+      box-shadow: 0 4px 12px var(--accent-glow);
+    }
+
+    .tab-content {
+      display: none;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .form-section-sublabel {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--cyan);
+      margin-bottom: 2px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="admin-header">
+      <div class="admin-header-left">
+        <div class="admin-logo">V</div>
+        <div>
+          <div class="admin-title">Portfolio Manager</div>
+          <div class="admin-subtitle">Manage your Interactive Portfolio carousel</div>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-secondary" id="exportCodeBtn" onclick="openCodeModal()">
+          <svg viewBox="0 0 24 24">
+            <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0L19.2 12l-4.6-4.6L16 6l6 6-6 6-1.4-1.4z" />
+          </svg>
+          Export HTML Code
+        </button>
+        <button class="btn btn-primary" onclick="openAddModal()">
+          <svg viewBox="0 0 24 24">
+            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+          </svg>
+          Add Project
+        </button>
+      </div>
+    </header>
+
+    <!-- Tabs Nav -->
+    <div class="tabs-nav">
+      <button class="tab-btn active" id="tabBtnProjects" onclick="switchTab('projects')">🎬 Manage Portfolio</button>
+      <button class="tab-btn" id="tabBtnProfile" onclick="switchTab('profile')">👤 Profile Details</button>
+    </div>
+
+    <!-- Projects Tab Content -->
+    <div class="tab-content active" id="projectsTab">
+      <!-- Stats -->
+      <div class="stats-bar" id="statsBar">
+        <div class="stat-card">
+          <div class="stat-icon purple">🎬</div>
+          <div>
+            <div class="stat-value" id="statTotal">0</div>
+            <div class="stat-label">Total Projects</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon cyan">▶️</div>
+          <div>
+            <div class="stat-value" id="statYoutube">0</div>
+            <div class="stat-label">YouTube</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon emerald">🎥</div>
+          <div>
+            <div class="stat-value" id="statVimeo">0</div>
+            <div class="stat-label">Vimeo</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon blue">📘</div>
+          <div>
+            <div class="stat-value" id="statFacebook">0</div>
+            <div class="stat-label">Facebook</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon pink">📸</div>
+          <div>
+            <div class="stat-value" id="statInstagram">0</div>
+            <div class="stat-label">Instagram</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon amber">📂</div>
+          <div>
+            <div class="stat-value" id="statCategories">0</div>
+            <div class="stat-label">Categories</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project List Header -->
+      <div class="projects-header">
+        <div class="projects-title">All Projects</div>
+        <div style="font-size: 12px; color: var(--text-muted);">Drag to reorder • Changes auto-saved</div>
+      </div>
+
+      <!-- Project List -->
+      <div class="project-list" id="projectList"></div>
+    </div>
+    <!-- End of Projects Tab Content -->
+
+    <!-- Profile Tab Content -->
+    <div class="tab-content" id="profileTab">
+      <form class="form-grid" id="profileForm" onsubmit="handleProfileSubmit(event)"
+        style="background: var(--bg-secondary); padding: 32px; border-radius: var(--radius); border: 1px solid var(--border);">
+
+        <div class="form-section-label" style="grid-column: 1 / -1;">👤 Hero & General Info</div>
+
+        <div class="form-group">
+          <label class="form-label" for="profNavLogo">Nav Logo Text *</label>
+          <input class="form-input" type="text" id="profNavLogo" placeholder="e.g. M.Sridharan" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="profHeroTag">Hero Sub-label/Location *</label>
+          <input class="form-input" type="text" id="profHeroTag"
+            placeholder="e.g. Post-Production Specialist · Puducherry, India" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="profHeroName">Name * (Supports HTML, e.g. M.
+            &lt;span&gt;SRIDHARAN&lt;/span&gt;)</label>
+          <input class="form-input" type="text" id="profHeroName" placeholder="e.g. M. <span>SRIDHARAN</span>" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="profHeroTitle">Professional Title *</label>
+          <input class="form-input" type="text" id="profHeroTitle"
+            placeholder="e.g. Video Editor & AI-Assisted Media Producer" required>
+        </div>
+        <div class="form-group full-width">
+          <label class="form-label" for="profHeroDesc">Hero Bio/Description *</label>
+          <textarea class="form-textarea" id="profHeroDesc" placeholder="Describe yourself..." required
+            style="height: 100px;"></textarea>
+        </div>
+
+        <div class="form-divider" style="grid-column: 1 / -1;"></div>
+        <div class="form-section-label" style="grid-column: 1 / -1;">🎯 Skills Categories (Comma-separated)</div>
+
+        <div class="form-group">
+          <label class="form-label" for="profSkillsTechnical">Technical Skills</label>
+          <textarea class="form-textarea" id="profSkillsTechnical" placeholder="DaVinci Resolve, Premiere Pro..."
+            style="height: 80px;"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="profSkillsAi">AI & Modern Media</label>
+          <textarea class="form-textarea" id="profSkillsAi" placeholder="AI Video Editing, Scene Detection..."
+            style="height: 80px;"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="profSkillsCore">Core Competencies</label>
+          <textarea class="form-textarea" id="profSkillsCore" placeholder="Non-Linear Editing, Color Grading..."
+            style="height: 80px;"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="profSkillsPersonal">Personal Skills</label>
+          <textarea class="form-textarea" id="profSkillsPersonal"
+            placeholder="Creative Storytelling, Attention to Detail..." style="height: 80px;"></textarea>
+        </div>
+
+        <div class="form-divider" style="grid-column: 1 / -1;"></div>
+        <div class="form-section-label"
+          style="grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+          <span>💼 Work Experience</span>
+          <button type="button" class="btn btn-success btn-sm" onclick="addExperienceField()">+ Add Experience</button>
+        </div>
+        <div id="experienceFieldsContainer"
+          style="grid-column: 1 / -1; display: flex; flex-direction: column; gap: 20px;"></div>
+
+        <div class="form-divider" style="grid-column: 1 / -1;"></div>
+        <div class="form-section-label"
+          style="grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+          <span>🎓 Education History</span>
+          <button type="button" class="btn btn-success btn-sm" onclick="addEducationField()">+ Add Education</button>
+        </div>
+        <div id="educationFieldsContainer"
+          style="grid-column: 1 / -1; display: flex; flex-direction: column; gap: 16px;"></div>
+
+        <div class="form-divider" style="grid-column: 1 / -1;"></div>
+        <div class="form-section-label"
+          style="grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+          <span>🏆 Key Achievements / Awards</span>
+          <button type="button" class="btn btn-success btn-sm" onclick="addAchievementField()">+ Add
+            Achievement</button>
+        </div>
+        <div id="achievementFieldsContainer"
+          style="grid-column: 1 / -1; display: flex; flex-direction: column; gap: 16px;"></div>
+
+        <div class="form-divider" style="grid-column: 1 / -1;"></div>
+        <div class="form-section-label" style="grid-column: 1 / -1;">📱 Contact & Social Media Links</div>
+
+        <div class="form-group">
+          <label class="form-label" for="profContactPhone">Phone Number</label>
+          <input class="form-input" type="text" id="profContactPhone" placeholder="+91 81100 85264">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="profContactEmail">Email Address</label>
+          <input class="form-input" type="email" id="profContactEmail" placeholder="sridharan19@icloud.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="profContactLoc">Location Text</label>
+          <input class="form-input" type="text" id="profContactLoc" placeholder="Puducherry, India">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="profContactBlog">Blog URL</label>
+          <input class="form-input" type="text" id="profContactBlog" placeholder="sridharan19.blogspot.com">
+        </div>
+
+        <!-- Socials -->
+        <div class="form-group">
+          <label class="form-label" for="profSocYoutube">▶ YouTube Link</label>
+          <input class="form-input" type="url" id="profSocYoutube" placeholder="https://youtube.com/channel/...">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="profSocInsta">📸 Instagram Link</label>
+          <input class="form-input" type="url" id="profSocInsta" placeholder="https://instagram.com/...">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="profSocFb">📘 Facebook Link</label>
+          <input class="form-input" type="url" id="profSocFb" placeholder="https://facebook.com/...">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="profSocTwitter">🐦 Twitter / X Link</label>
+          <input class="form-input" type="url" id="profSocTwitter" placeholder="https://x.com/...">
+        </div>
+        <div class="form-group full-width">
+          <label class="form-label" for="profSocLinkedin">💼 LinkedIn Link</label>
+          <input class="form-input" type="url" id="profSocLinkedin" placeholder="https://linkedin.com/in/...">
+        </div>
+
+        <div class="form-actions full-width"
+          style="grid-column: 1 / -1; display: flex; justify-content: flex-end; margin-top: 24px;">
+          <button type="submit" class="btn btn-primary">
+            <svg viewBox="0 0 24 24">
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+            </svg>
+            Save Profile Details
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add/Edit Modal -->
+  <div class="modal-overlay" id="formModal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeFormModal()">✕</button>
+      <div class="modal-title">
+        <span id="modalIcon">✦</span>
+        <span id="modalTitle">Add New Project</span>
+      </div>
+      <form class="form-grid" id="projectForm" onsubmit="handleFormSubmit(event)">
+        <input type="hidden" id="editIndex" value="-1">
+
+        <div class="form-section-label">📋 Project Details</div>
+
+        <div class="form-group full-width">
+          <label class="form-label" for="pTitle">Title *</label>
+          <input class="form-input" type="text" id="pTitle" placeholder="e.g. 360° VR Immersive Journey" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="pCategory">Category *</label>
+          <select class="form-select" id="pCategory" required>
+            <option value="">Select category…</option>
+            <option value="motion">Motion</option>
+            <option value="commercial">Commercial</option>
+            <option value="news">News</option>
+            <option value="documentary">Documentary</option>
+            <option value="vfx">VFX</option>
+            <option value="music-video">Music Video</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="pDuration">Duration *</label>
+          <input class="form-input" type="text" id="pDuration" placeholder="e.g. 03:00" required
+            pattern="[0-9]{1,2}:[0-9]{2}">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="pClient">Client / Studio</label>
+          <input class="form-input" type="text" id="pClient" placeholder="e.g. Travel & Beyond">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="pRole">Your Role</label>
+          <input class="form-input" type="text" id="pRole" placeholder="e.g. Lead Editor & Colorist">
+        </div>
+
+        <div class="form-group full-width">
+          <label class="form-label" for="pTools">Tools Used</label>
+          <input class="form-input" type="text" id="pTools"
+            placeholder="e.g. Premiere Pro, After Effects, DaVinci Resolve">
+        </div>
+
+        <div class="form-divider"></div>
+        <div class="form-section-label">🎬 Video Source</div>
+
+        <div class="form-group full-width">
+          <label class="form-label">Video Platform *</label>
+          <div class="form-row-radio">
+            <label class="radio-option">
+              <input type="radio" name="videoSource" value="youtube" checked onchange="onPlatformChange()">
+              YouTube
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="videoSource" value="vimeo" onchange="onPlatformChange()">
+              Vimeo
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="videoSource" value="facebook" onchange="onPlatformChange()">
+              Facebook
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="videoSource" value="instagram" onchange="onPlatformChange()">
+              Instagram
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group full-width" id="videoIdGroup">
+          <label class="form-label" for="pVideoId" id="videoIdLabel">Video ID *</label>
+          <input class="form-input" type="text" id="pVideoId"
+            placeholder="e.g. 6gmppgrrXww (YouTube) or 1194160562 (Vimeo)" required oninput="updateThumbPreview()">
+          <div class="form-hint" id="videoIdHint"></div>
+        </div>
+
+        <div class="form-group full-width" id="customThumbGroup" style="display: none;">
+          <label class="form-label" for="pCustomThumb">Custom Thumbnail URL (optional)</label>
+          <input class="form-input" type="url" id="pCustomThumb" placeholder="https://example.com/thumbnail.jpg"
+            oninput="updateThumbPreview()">
+          <div class="form-hint">Facebook & Instagram don't auto-generate thumbnails. Paste an image URL here.</div>
+        </div>
+
+        <img class="thumb-preview" id="thumbPreview" alt="Thumbnail Preview">
+
+        <div class="form-divider"></div>
+        <div class="form-section-label">📝 Card Display</div>
+
+        <div class="form-group full-width">
+          <label class="form-label" for="pCategoryLabel">Category Label (shown on card)</label>
+          <input class="form-input" type="text" id="pCategoryLabel" placeholder="e.g. 360° VR & Immersive">
+        </div>
+
+        <div class="form-group full-width">
+          <label class="form-label" for="pShortDesc">Short Description (card footer)</label>
+          <input class="form-input" type="text" id="pShortDesc"
+            placeholder="e.g. Spatial audio rendering, seamless VR stitching...">
+        </div>
+
+        <div class="form-group full-width">
+          <label class="form-label" for="pMetaLabel">Meta Tag (card footer badge)</label>
+          <input class="form-input" type="text" id="pMetaLabel" placeholder="e.g. Immersive">
+        </div>
+
+        <div class="form-group full-width">
+          <label class="form-label" for="pDescription">Full Description (lightbox modal)</label>
+          <textarea class="form-textarea" id="pDescription"
+            placeholder="Detailed description shown when the project is opened in the lightbox modal..."></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" onclick="closeFormModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="formSubmitBtn">
+            <svg viewBox="0 0 24 24">
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+            </svg>
+            Save Project
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Export Code Modal -->
+  <div class="modal-overlay" id="codeModal">
+    <div class="modal" style="max-width: 800px;">
+      <button class="modal-close" onclick="closeCodeModal()">✕</button>
+      <div class="modal-title">
+        <span>⟨/⟩</span>
+        Generated HTML Code
+      </div>
+      <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 16px;">
+        Copy this code and replace the carousel cards section inside <code
+          style="background: var(--bg-input); padding: 2px 6px; border-radius: 4px; font-size: 12px;">index.html</code>
+        between the <code
+          style="background: var(--bg-input); padding: 2px 6px; border-radius: 4px; font-size: 12px;">&lt;div class="carousel-track"&gt;</code>
+        opening and closing tags.
+      </p>
+      <pre class="code-output" id="codeOutput"></pre>
+      <div class="code-actions">
+        <button class="btn btn-success" onclick="copyCode()">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
+          </svg>
+          Copy to Clipboard
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirm Dialog -->
+  <div class="confirm-overlay" id="confirmOverlay">
+    <div class="confirm-box">
+      <h3 id="confirmTitle">Delete Project?</h3>
+      <p id="confirmMsg">This action cannot be undone.</p>
+      <div class="confirm-actions">
+        <button class="btn btn-secondary btn-sm" onclick="closeConfirm()">Cancel</button>
+        <button class="btn btn-danger btn-sm" id="confirmAction" onclick="confirmDelete()">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+
+  <script>
+    // Firebase Config
+    const firebaseConfig = {
+      apiKey: "AIzaSyCtcAugsTV6eV6r1yjaISZ6Cie72LUXdDw",
+      authDomain: "sridharan-resumeshowcase.firebaseapp.com",
+      projectId: "sridharan-resumeshowcase",
+      storageBucket: "sridharan-resumeshowcase.firebasestorage.app",
+      messagingSenderId: "992439230623",
+      appId: "1:992439230623:web:f5798c0acc1f36787ac2aa",
+      measurementId: "G-1Y9H9WTQ3P",
+      databaseURL: "https://sridharan-resumeshowcase-default-rtdb.asia-southeast1.firebasedatabase.app/"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    // ─── Default Data (matches current index.html cards) ───
+    const DEFAULT_PROJECTS = [
+      {
+        title: "360° VR Immersive Journey",
+        category: "motion",
+        videoSource: "youtube",
+        videoId: "6gmppgrrXww",
+        client: "Travel & Beyond",
+        role: "VR Video Editor & Colorist",
+        tools: "Premiere Pro, After Effects, Mocha VR",
+        duration: "03:00",
+        description: "A panoramic virtual tour highlighting seamless spherical stitching, immersive audio spatialization, and motion tracking in VR spaces. Features color-graded spherical outputs.",
+        categoryLabel: "360° VR & Immersive",
+        shortDesc: "Spatial audio rendering, seamless VR stitching, and post-production coloring.",
+        metaLabel: "Immersive"
+      },
+      {
+        title: "Cyberpunk Sci-Fi Short Film",
+        category: "motion",
+        videoSource: "vimeo",
+        videoId: "1194160562",
+        client: "Neon Eclipse Studios",
+        role: "Lead Colorist & VFX Compositor",
+        tools: "DaVinci Resolve, Fusion, After Effects",
+        duration: "04:15",
+        description: "High-end color grading and visual compositing for a cyberpunk sci-fi short film. Developed neon glowing profiles, integrated HUD holographic elements, and enhanced green-screen backdrops.",
+        categoryLabel: "VFX & Color Grading",
+        shortDesc: "Cyberpunk neon grading, rotoscoping, HUD design, and composite keying.",
+        metaLabel: "VFX & Grade"
+      },
+      {
+        title: "Luxury Watch Commercial",
+        category: "commercial",
+        videoSource: "youtube",
+        videoId: "FkUn86W1jBc",
+        client: "Chronos Timepieces",
+        role: "Video Editor",
+        tools: "Premiere Pro, Adobe Audition, Speed Ramps",
+        duration: "01:30",
+        description: "A premium product commercial displaying speed ramping, audio sync with heavy bass beats, macro details contrast correction, and clean typography layouts to drive a high-end feel.",
+        categoryLabel: "Commercial & Promos",
+        shortDesc: "Sync beats, speed ramps, sound design, and color grading details.",
+        metaLabel: "Commercial"
+      },
+      {
+        title: "Unsung Heroes Documentary",
+        category: "documentary",
+        videoSource: "vimeo",
+        videoId: "1194160709",
+        client: "Puducherry Cultural Society",
+        role: "Post-Production Specialist",
+        tools: "Final Cut Pro X, Adobe Audition, Lightroom",
+        duration: "05:20",
+        description: "A moving travel-documentary style narrative celebrating the legacy of unsung local freedom fighters and artists. Retro grading overlays, multi-mic audio mastering, and vintage photo restorations.",
+        categoryLabel: "Documentary & Storytelling",
+        shortDesc: "Emotional story pacing, vintage tone overlays, and high quality audio restoration.",
+        metaLabel: "Documentary"
+      }
+    ];
+
+    // ─── Default Profile Data ───
+    const DEFAULT_PROFILE = {
+      hero: {
+        navLogo: "M.Sridharan",
+        tag: "Post-Production Specialist · Puducherry, India",
+        name: "M. <span>SRIDHARAN</span>",
+        title: "Video Editor & AI-Assisted Media Producer",
+        desc: "Creative and detail-oriented Video Editor with strong experience in post-production for Media, TV, and digital platforms. Leveraging advanced editing, storytelling, and AI-assisted production skills to deliver high-quality visual content."
+      },
+      skills: {
+        technical: "DaVinci Resolve, Final Cut Pro X, Premiere Pro, Avid Media Composer, After Effects, Photoshop, Lightroom, Autodesk Maya, Adobe Flash, Adobe Audition, iMovie, G-Boombaa Xtreme, OBS Studio, vMix",
+        ai: "AI Video Editing, Auto Cuts, Scene Detection, Midjourney, DALL·E, AI Voice Generation, Dubbing Tools, Speech-to-Text, Prompt Engineering, AI Color Grading",
+        core: "Non-Linear Editing, Color Grading, Sound Design, Motion Graphics, Documentary Editing, News Editing, Commercials, Music Videos, Video Archives, Post-Production",
+        personal: "Creative Storytelling, Attention to Detail, Time Management, Team Collaboration, Adaptability, Tight Deadlines"
+      },
+
+      experience: [
+        {
+          period: "2016 — Present",
+          isCurrent: true,
+          role: "Video Editor",
+          company: "Dinamalar.com (Web TV)",
+          companyUrl: "https://www.youtube.com/c/Dinamalardaily",
+          bullets: [
+            "Post-Production : Editing high-impact news, montage videos, and commercials.",
+            "Live Broadcast Management : Operating vMix and OBS Studio for real-time web TV broadcasts, ensuring seamless transitions and technical stability.",
+            "Social Media Management : Managing and optimizing video content distribution across YouTube, Facebook, and Twitter to maximize engagement.",
+            "Visual Marketing : Designing high-CTR (Click-Through Rate) custom thumbnails using Photoshop and AI tools to boost viewership.",
+            "Collaboration : Working closely with news desks and producers to deliver breaking news under strict deadlines."
+          ]
+        },
+        {
+          period: "2014 — 2016",
+          isCurrent: false,
+          role: "Video Editor & Motion Designer",
+          company: "Freelance — Various Clients",
+          companyUrl: "",
+          bullets: [
+            "Commercial & Brand Videos : Produced compelling commercials and brand videos for local businesses, NGOs, and political campaigns across Puducherry.",
+            "Documentary Production : Directed and edited short-form documentary content for cultural events and social awareness campaigns.",
+            "Motion Graphics : Created animated intros, lower-thirds, and title cards using After Effects and Adobe Flash for Tamil-language media productions.",
+            "Color Grading : Delivered cinematic color grades for music videos and short films using DaVinci Resolve and Premiere Pro."
+          ]
+        }
+      ],
+
+      education: [
+        {
+          year: "2012 — 2015",
+          degree: "B.Sc Visual Communication",
+          institution: "Pondicherry University Community College",
+          score: "80%"
+        },
+        {
+          year: "2009 — 2010",
+          degree: "12th Standard",
+          institution: "V. Venkatasubba Reddiar Govt. Technical Higher Secondary School",
+          score: "83.5%"
+        },
+        {
+          year: "2007 — 2008",
+          degree: "10th Standard",
+          institution: "Navalar Nedunchezhian Govt. Higher Secondary School",
+          score: "62.5%"
+        }
+      ],
+      achievements: [
+        {
+          icon: "🥇",
+          title: "First Prize — Documentary Short Film Contest 2015",
+          description: "Conducted by Puducherry Tourism Department & E Minds New Media Studies. Recognized for outstanding storytelling and craft.",
+          linkLabel: "",
+          linkUrl: ""
+        },
+        {
+          icon: "▶️",
+          title: "YouTube Channel — VIDHI",
+          description: "Personal creative channel showcasing 360-degree videos, immersive visual experiences, and post-production techniques.",
+          linkLabel: "→ Visit Channel",
+          linkUrl: "https://www.youtube.com/channel/UClFEghqB_mUZPCuXrEKMh0w"
+        }
+      ],
+
+      contact: {
+        phone: "+91 81100 85264",
+        email: "sridharan19@icloud.com",
+        blog: "sridharan19.blogspot.com",
+        location: "Puducherry, India"
+      },
+      socials: {
+        youtube: "https://www.youtube.com/channel/UClFEghqB_mUZPCuXrEKMh0w",
+        instagram: "https://www.instagram.com/vidhi.360.videos/reels/",
+        facebook: "https://www.facebook.com/profile.php?id=61590363465464",
+        twitter: "https://x.com/M_sridharan19",
+        linkedin: "https://www.linkedin.com/in/sridharan-m-231b71ba"
+      }
+    };
+
+    // ─── State ───
+    let projects = [];
+    let deleteTargetIndex = -1;
+
+    // ─── Init ───
+    function init() {
+      // First load from localStorage to render immediately
+      const saved = localStorage.getItem('vidhi_portfolio_projects');
+      if (saved) {
+        try {
+          projects = JSON.parse(saved);
+          render();
+        } catch (e) { }
+      }
+
+      // Then fetch from Firebase for source of truth (Projects)
+      db.ref('projects').on('value', (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+          projects = data;
+          localStorage.setItem('vidhi_portfolio_projects', JSON.stringify(projects));
+          render();
+        } else {
+          // If database is empty, seed it with defaults
+          projects = [...DEFAULT_PROJECTS];
+          db.ref('projects').set(DEFAULT_PROJECTS);
+          localStorage.setItem('vidhi_portfolio_projects', JSON.stringify(projects));
+          render();
+        }
+      }, (error) => {
+        console.error("Firebase read failed: ", error);
+        showToast('error', 'Failed to load projects from cloud database');
+        if (projects.length === 0) {
+          projects = [...DEFAULT_PROJECTS];
+          render();
+        }
+      });
+
+      // Fetch profile content from Firebase
+      db.ref('profile').on('value', (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+          populateProfileFields(data);
+        } else {
+          // Seed database with defaults
+          db.ref('profile').set(DEFAULT_PROFILE);
+          populateProfileFields(DEFAULT_PROFILE);
+        }
+      }, (error) => {
+        console.error("Firebase profile read failed: ", error);
+        showToast('error', 'Failed to load profile details from cloud database');
+      });
+    }
+
+    function save() {
+      localStorage.setItem('vidhi_portfolio_projects', JSON.stringify(projects));
+      db.ref('projects').set(projects).then(() => {
+        showToast('success', 'Changes synced to database successfully!');
+      }).catch((error) => {
+        console.error("Firebase save failed: ", error);
+        showToast('error', 'Database sync failed, saved locally.');
+      });
+    }
+
+    // ─── Render ───
+    function render() {
+      renderStats();
+      renderProjectList();
+    }
+
+    function renderStats() {
+      document.getElementById('statTotal').textContent = projects.length;
+      document.getElementById('statYoutube').textContent = projects.filter(p => p.videoSource === 'youtube').length;
+      document.getElementById('statVimeo').textContent = projects.filter(p => p.videoSource === 'vimeo').length;
+      document.getElementById('statFacebook').textContent = projects.filter(p => p.videoSource === 'facebook').length;
+      document.getElementById('statInstagram').textContent = projects.filter(p => p.videoSource === 'instagram').length;
+      const cats = new Set(projects.map(p => p.category));
+      document.getElementById('statCategories').textContent = cats.size;
+    }
+
+    function getThumbUrl(project) {
+      if (project.customThumb) return project.customThumb;
+      if (project.videoSource === 'youtube') {
+        return `https://img.youtube.com/vi/${project.videoId}/maxresdefault.jpg`;
+      } else if (project.videoSource === 'vimeo') {
+        return `https://vumbnail.com/${project.videoId}.jpg`;
+      }
+      return '';
+    }
+
+    const PLATFORM_LABELS = {
+      youtube: '▶ YouTube',
+      vimeo: '🎥 Vimeo',
+      facebook: '📘 Facebook',
+      instagram: '📸 Instagram'
+    };
+
+    function renderProjectList() {
+      const list = document.getElementById('projectList');
+
+      if (projects.length === 0) {
+        list.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-state-icon">🎬</div>
+            <h3>No Projects Yet</h3>
+            <p>Add your first portfolio project to get started.</p>
+            <button class="btn btn-primary" onclick="openAddModal()">
+              <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+              Add Project
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      list.innerHTML = projects.map((p, i) => `
+        <div class="project-item" draggable="true" data-index="${i}"
+          ondragstart="handleDragStart(event, ${i})"
+          ondragover="handleDragOver(event)"
+          ondrop="handleDrop(event, ${i})"
+          ondragend="handleDragEnd(event)">
+          <div class="drag-handle">
+            <span></span><span></span><span></span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 16px; min-width: 0;">
+            <img class="project-thumb" src="${getThumbUrl(p)}" alt="${escapeHtml(p.title)}" 
+              onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22160%22 height=%2290%22><rect fill=%22%231a1a28%22 width=%22160%22 height=%2290%22/><text x=%2250%25%22 y=%2250%25%22 fill=%22%235a5a7a%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22 font-size=%2212%22>No Thumb</text></svg>'">
+            <div class="project-info">
+              <h3>${escapeHtml(p.title)}</h3>
+              <div class="project-meta">
+                <span class="project-badge badge-category">${escapeHtml(p.category)}</span>
+                <span class="project-badge badge-source">${PLATFORM_LABELS[p.videoSource] || p.videoSource}</span>
+                <span class="project-badge badge-duration">⏱ ${escapeHtml(p.duration)}</span>
+              </div>
+            </div>
+          </div>
+          <div class="project-actions">
+            <button class="btn btn-secondary btn-icon" title="Edit" onclick="openEditModal(${i})">
+              <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+            </button>
+            <button class="btn btn-secondary btn-icon" title="Duplicate" onclick="duplicateProject(${i})">
+              <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+            </button>
+            <button class="btn btn-danger btn-icon" title="Delete" onclick="openDeleteConfirm(${i})">
+              <svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // ─── Form Modal ───
+    function openAddModal() {
+      document.getElementById('editIndex').value = -1;
+      document.getElementById('modalTitle').textContent = 'Add New Project';
+      document.getElementById('modalIcon').textContent = '✦';
+      document.getElementById('formSubmitBtn').innerHTML = '<svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg> Add Project';
+      document.getElementById('projectForm').reset();
+      document.querySelector('input[name="videoSource"][value="youtube"]').checked = true;
+      document.getElementById('thumbPreview').classList.remove('visible');
+      document.getElementById('customThumbGroup').style.display = 'none';
+      document.getElementById('videoIdHint').textContent = '';
+      document.getElementById('formModal').classList.add('active');
+    }
+
+    function openEditModal(index) {
+      const p = projects[index];
+      document.getElementById('editIndex').value = index;
+      document.getElementById('modalTitle').textContent = 'Edit Project';
+      document.getElementById('modalIcon').textContent = '✎';
+      document.getElementById('formSubmitBtn').innerHTML = '<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Save Changes';
+
+      document.getElementById('pTitle').value = p.title;
+      document.getElementById('pCategory').value = p.category;
+      document.getElementById('pDuration').value = p.duration;
+      document.getElementById('pClient').value = p.client || '';
+      document.getElementById('pRole').value = p.role || '';
+      document.getElementById('pTools').value = p.tools || '';
+      document.querySelector(`input[name="videoSource"][value="${p.videoSource}"]`).checked = true;
+      document.getElementById('pVideoId').value = p.videoId;
+      document.getElementById('pCustomThumb').value = p.customThumb || '';
+      document.getElementById('pCategoryLabel').value = p.categoryLabel || '';
+      document.getElementById('pShortDesc').value = p.shortDesc || '';
+      document.getElementById('pMetaLabel').value = p.metaLabel || '';
+      document.getElementById('pDescription').value = p.description || '';
+      onPlatformChange();
+
+      updateThumbPreview();
+      document.getElementById('formModal').classList.add('active');
+    }
+
+    function closeFormModal() {
+      document.getElementById('formModal').classList.remove('active');
+    }
+
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const index = parseInt(document.getElementById('editIndex').value);
+      const videoSource = document.querySelector('input[name="videoSource"]:checked').value;
+
+      const project = {
+        title: document.getElementById('pTitle').value.trim(),
+        category: document.getElementById('pCategory').value,
+        videoSource: videoSource,
+        videoId: document.getElementById('pVideoId').value.trim(),
+        customThumb: document.getElementById('pCustomThumb').value.trim(),
+        client: document.getElementById('pClient').value.trim(),
+        role: document.getElementById('pRole').value.trim(),
+        tools: document.getElementById('pTools').value.trim(),
+        duration: document.getElementById('pDuration').value.trim(),
+        description: document.getElementById('pDescription').value.trim(),
+        categoryLabel: document.getElementById('pCategoryLabel').value.trim(),
+        shortDesc: document.getElementById('pShortDesc').value.trim(),
+        metaLabel: document.getElementById('pMetaLabel').value.trim()
+      };
+
+      if (index === -1) {
+        projects.push(project);
+        showToast('success', 'Project added successfully!');
+      } else {
+        projects[index] = project;
+        showToast('success', 'Project updated successfully!');
+      }
+
+      save();
+      render();
+      closeFormModal();
+    }
+
+    // ─── Platform Change Handler ───
+    function onPlatformChange() {
+      const source = document.querySelector('input[name="videoSource"]:checked').value;
+      const label = document.getElementById('videoIdLabel');
+      const input = document.getElementById('pVideoId');
+      const hint = document.getElementById('videoIdHint');
+      const thumbGroup = document.getElementById('customThumbGroup');
+
+      if (source === 'youtube') {
+        label.textContent = 'Video ID *';
+        input.placeholder = 'e.g. 6gmppgrrXww';
+        hint.textContent = 'The ID from the YouTube URL: youtube.com/watch?v=THIS_PART';
+        thumbGroup.style.display = 'none';
+      } else if (source === 'vimeo') {
+        label.textContent = 'Video ID *';
+        input.placeholder = 'e.g. 1194160562';
+        hint.textContent = 'The ID from the Vimeo URL: vimeo.com/THIS_PART';
+        thumbGroup.style.display = 'none';
+      } else if (source === 'facebook') {
+        label.textContent = 'Facebook Video URL *';
+        input.placeholder = 'e.g. https://www.facebook.com/watch?v=123456789';
+        hint.textContent = 'Paste the full Facebook video or reel URL';
+        thumbGroup.style.display = 'flex';
+      } else if (source === 'instagram') {
+        label.textContent = 'Instagram Reel URL *';
+        input.placeholder = 'e.g. https://www.instagram.com/reel/ABC123xyz/';
+        hint.textContent = 'Paste the full Instagram reel URL';
+        thumbGroup.style.display = 'flex';
+      }
+      updateThumbPreview();
+    }
+
+    // ─── Thumbnail Preview ───
+    function updateThumbPreview() {
+      const videoId = document.getElementById('pVideoId').value.trim();
+      const customThumb = document.getElementById('pCustomThumb').value.trim();
+      const source = document.querySelector('input[name="videoSource"]:checked').value;
+      const preview = document.getElementById('thumbPreview');
+
+      if (customThumb) {
+        preview.src = customThumb;
+        preview.classList.add('visible');
+        return;
+      }
+
+      if (videoId) {
+        let url;
+        if (source === 'youtube') {
+          url = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+        } else if (source === 'vimeo') {
+          url = `https://vumbnail.com/${videoId}.jpg`;
+        } else {
+          preview.classList.remove('visible');
+          return;
+        }
+        preview.src = url;
+        preview.classList.add('visible');
+      } else {
+        preview.classList.remove('visible');
+      }
+    }
+
+    // ─── Delete ───
+    function openDeleteConfirm(index) {
+      deleteTargetIndex = index;
+      document.getElementById('confirmTitle').textContent = 'Delete Project?';
+      document.getElementById('confirmMsg').textContent = `Are you sure you want to delete "${projects[index].title}"?`;
+      document.getElementById('confirmOverlay').classList.add('active');
+    }
+
+    function closeConfirm() {
+      document.getElementById('confirmOverlay').classList.remove('active');
+      deleteTargetIndex = -1;
+    }
+
+    function confirmDelete() {
+      if (deleteTargetIndex >= 0 && deleteTargetIndex < projects.length) {
+        const name = projects[deleteTargetIndex].title;
+        projects.splice(deleteTargetIndex, 1);
+        save();
+        render();
+        showToast('success', `"${name}" deleted.`);
+      }
+      closeConfirm();
+    }
+
+    // ─── Duplicate ───
+    function duplicateProject(index) {
+      const clone = { ...projects[index], title: projects[index].title + ' (Copy)' };
+      projects.splice(index + 1, 0, clone);
+      save();
+      render();
+      showToast('info', 'Project duplicated.');
+    }
+
+    // ─── Drag & Drop Reorder ───
+    let dragSourceIndex = null;
+
+    function handleDragStart(e, index) {
+      dragSourceIndex = index;
+      e.currentTarget.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+    }
+
+    function handleDragOver(e) {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+    }
+
+    function handleDrop(e, targetIndex) {
+      e.preventDefault();
+      if (dragSourceIndex !== null && dragSourceIndex !== targetIndex) {
+        const item = projects.splice(dragSourceIndex, 1)[0];
+        projects.splice(targetIndex, 0, item);
+        save();
+        render();
+        showToast('info', 'Order updated.');
+      }
+    }
+
+    function handleDragEnd(e) {
+      e.currentTarget.classList.remove('dragging');
+      dragSourceIndex = null;
+    }
+
+    // ─── Export HTML Code ───
+    function openCodeModal() {
+      const code = generateHtmlCode();
+      document.getElementById('codeOutput').textContent = code;
+      document.getElementById('codeModal').classList.add('active');
+    }
+
+    function closeCodeModal() {
+      document.getElementById('codeModal').classList.remove('active');
+    }
+
+    function generateHtmlCode() {
+      if (projects.length === 0) return '<!-- No projects to generate -->';
+
+      return projects.map((p, i) => {
+        let dataVideoAttr;
+        if (p.videoSource === 'youtube') {
+          dataVideoAttr = `data-yt-id="${escapeAttr(p.videoId)}"`;
+        } else if (p.videoSource === 'vimeo') {
+          dataVideoAttr = `data-vimeo-id="${escapeAttr(p.videoId)}"`;
+        } else if (p.videoSource === 'facebook') {
+          dataVideoAttr = `data-fb-url="${escapeAttr(p.videoId)}"`;
+        } else if (p.videoSource === 'instagram') {
+          dataVideoAttr = `data-insta-url="${escapeAttr(p.videoId)}"`;
+        }
+
+        let thumbSrc;
+        if (p.customThumb) {
+          thumbSrc = escapeAttr(p.customThumb);
+        } else if (p.videoSource === 'youtube') {
+          thumbSrc = `https://img.youtube.com/vi/${escapeAttr(p.videoId)}/maxresdefault.jpg`;
+        } else if (p.videoSource === 'vimeo') {
+          thumbSrc = `https://vumbnail.com/${escapeAttr(p.videoId)}.jpg`;
+        } else {
+          thumbSrc = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22320%22 height=%22180%22%3E%3Crect fill=%22%231a1a28%22 width=%22320%22 height=%22180%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 fill=%22%235a5a7a%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22 font-size=%2214%22%3ECustom Thumbnail%3C/text%3E%3C/svg%3E';
+        }
+
+        const sprocketHoles = Array(8).fill('              <div class="sprocket-hole"></div>').join('\n');
+
+        return `          <!-- Carousel Card ${i + 1} -->
+          <div class="carousel-card film-card glass-card reveal" data-category="${escapeAttr(p.category)}" ${dataVideoAttr}
+            data-title="${escapeAttr(p.title)}" data-client="${escapeAttr(p.client)}"
+            data-role="${escapeAttr(p.role)}" data-tools="${escapeAttr(p.tools)}"
+            data-duration="${escapeAttr(p.duration)}"
+            data-description="${escapeAttr(p.description)}">
+            <div class="sprocket-strip">
+${sprocketHoles}
+            </div>
+            <div class="film-thumb-container">
+              <img class="film-thumb" src="${thumbSrc}"
+                alt="${escapeAttr(p.title)} Thumbnail">
+              <div class="film-thumb-overlay"></div>
+              <div class="play-btn-overlay">
+                <svg viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </div>
+            </div>
+            <div class="sprocket-strip sprocket-strip-bottom">
+${sprocketHoles}
+            </div>
+            <div class="film-card-footer">
+              <div>
+                <span class="film-card-category">${escapeHtml(p.categoryLabel || p.category)}</span>
+                <h3 class="film-card-title">${escapeHtml(p.title)}</h3>
+                <p class="film-card-desc">${escapeHtml(p.shortDesc || '')}</p>
+              </div>
+              <div class="film-meta-row">
+                <span>${escapeHtml(p.metaLabel || p.category)}</span>
+                <span class="film-duration-badge">⏱ ${escapeHtml(p.duration)}</span>
+              </div>
+            </div>
+          </div>`;
+      }).join('\n\n');
+    }
+
+    function copyCode() {
+      const code = document.getElementById('codeOutput').textContent;
+      navigator.clipboard.writeText(code).then(() => {
+        showToast('success', 'HTML code copied to clipboard!');
+      }).catch(() => {
+        // Fallback
+        const ta = document.createElement('textarea');
+        ta.value = code;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showToast('success', 'HTML code copied to clipboard!');
+      });
+    }
+
+    // ─── Toast ───
+    function showToast(type, message) {
+      const container = document.getElementById('toastContainer');
+      const icons = { success: '✓', error: '✕', info: 'ℹ' };
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      toast.innerHTML = `<span class="toast-icon">${icons[type] || 'ℹ'}</span> ${escapeHtml(message)}`;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(40px)';
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+
+    // ─── Utilities ───
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function escapeAttr(str) {
+      if (!str) return '';
+      return str.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    // ─── Close modals with Escape ───
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeFormModal();
+        closeCodeModal();
+        closeConfirm();
+      }
+    });
+
+    // ─── Close modals on overlay click ───
+    // Disabled overlay click close for formModal to prevent accidental data loss while editing
+    document.getElementById('codeModal').addEventListener('click', (e) => {
+      if (e.target === e.currentTarget) closeCodeModal();
+    });
+    document.getElementById('confirmOverlay').addEventListener('click', (e) => {
+      if (e.target === e.currentTarget) closeConfirm();
+    });
+
+    // ─── Tab Switching ───
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+
+      if (tabId === 'projects') {
+        document.getElementById('projectsTab').classList.add('active');
+        document.getElementById('tabBtnProjects').classList.add('active');
+        // Show project action buttons in header
+        document.getElementById('exportCodeBtn').style.display = 'inline-flex';
+        document.querySelector('header .btn-primary').style.display = 'inline-flex';
+      } else if (tabId === 'profile') {
+        document.getElementById('profileTab').classList.add('active');
+        document.getElementById('tabBtnProfile').classList.add('active');
+        // Hide project action buttons in header
+        document.getElementById('exportCodeBtn').style.display = 'none';
+        document.querySelector('header .btn-primary').style.display = 'none';
+      }
+    }
+
+    // ─── Profile Fields Management ───
+    function addEducationField(data = {}) {
+      const container = document.getElementById('educationFieldsContainer');
+      const div = document.createElement('div');
+      div.className = 'edu-form-item';
+      div.style.cssText = 'position: relative; background: var(--bg-card); padding: 20px; border-radius: var(--radius-sm); border: 1px solid var(--border); display: grid; grid-template-columns: 1fr 1fr; gap: 12px;';
+      div.innerHTML = `
+        <button type="button" class="btn btn-danger btn-icon" onclick="removeEducationField(this)" style="position: absolute; top: 12px; right: 12px; width: 28px; height: 28px; font-size: 10px;" title="Remove">✕</button>
+        <div class="form-group" style="margin-bottom: 0;">
+          <label class="form-label">Years (e.g. 2012 — 2015)</label>
+          <input class="form-input edu-year-input" type="text" placeholder="2012 — 2015" value="${data.year || ''}">
+        </div>
+        <div class="form-group" style="margin-bottom: 0;">
+          <label class="form-label">Degree / Course</label>
+          <input class="form-input edu-degree-input" type="text" placeholder="B.Sc Visual Communication" value="${data.degree || ''}">
+        </div>
+        <div class="form-group" style="margin-bottom: 0; grid-column: span 2;">
+          <label class="form-label">Institution</label>
+          <input class="form-input edu-inst-input" type="text" placeholder="Pondicherry University" value="${data.institution || ''}">
+        </div>
+        <div class="form-group" style="margin-bottom: 0; grid-column: span 2;">
+          <label class="form-label">Score / Award (optional)</label>
+          <input class="form-input edu-score-input" type="text" placeholder="80%" value="${data.score || ''}">
+        </div>
+      `;
+      container.appendChild(div);
+    }
+
+    function removeEducationField(button) {
+      button.closest('.edu-form-item').remove();
+    }
+
+    function addAchievementField(data = {}) {
+      const container = document.getElementById('achievementFieldsContainer');
+      const div = document.createElement('div');
+      div.className = 'ach-form-item';
+      div.style.cssText = 'position: relative; background: var(--bg-card); padding: 20px; border-radius: var(--radius-sm); border: 1px solid var(--border); display: grid; grid-template-columns: 1fr 1fr; gap: 12px;';
+      div.innerHTML = `
+        <button type="button" class="btn btn-danger btn-icon" onclick="removeAchievementField(this)" style="position: absolute; top: 12px; right: 12px; width: 28px; height: 28px; font-size: 10px;" title="Remove">✕</button>
+        <div class="form-group" style="margin-bottom: 0;">
+          <label class="form-label">Icon (Emoji, e.g. 🥇)</label>
+          <input class="form-input ach-icon-input" type="text" placeholder="🥇" value="${data.icon || ''}">
+        </div>
+        <div class="form-group" style="margin-bottom: 0;">
+          <label class="form-label">Title</label>
+          <input class="form-input ach-title-input" type="text" placeholder="First Prize..." value="${data.title || ''}">
+        </div>
+        <div class="form-group" style="margin-bottom: 0;">
+          <label class="form-label">Link Label (optional)</label>
+          <input class="form-input ach-label-input" type="text" placeholder="→ Visit Channel" value="${data.linkLabel || ''}">
+        </div>
+        <div class="form-group" style="margin-bottom: 0;">
+          <label class="form-label">Link URL (optional)</label>
+          <input class="form-input ach-url-input" type="url" placeholder="https://youtube.com/..." value="${data.linkUrl || ''}">
+        </div>
+        <div class="form-group full-width" style="margin-bottom: 0; grid-column: span 2;">
+          <label class="form-label">Description</label>
+          <textarea class="form-textarea ach-desc-input" placeholder="..." style="height: 60px;">${data.description || ''}</textarea>
+        </div>
+      `;
+      container.appendChild(div);
+    }
+
+    function removeAchievementField(button) {
+      button.closest('.ach-form-item').remove();
+    }
+
+    // ─── Experience Entry Editor ───
+    function addExperienceField(data = {}) {
+      const container = document.getElementById('experienceFieldsContainer');
+      const div = document.createElement('div');
+      div.className = 'exp-form-item';
+      div.style.cssText = 'position: relative; background: var(--bg-card); padding: 24px; border-radius: var(--radius-sm); border: 1px solid var(--border); border-left: 3px solid var(--cyan);';
+
+      const bullets = (data.bullets && data.bullets.length) ? data.bullets : [''];
+
+      div.innerHTML = `
+        <button type="button" class="btn btn-danger btn-icon" onclick="removeExperienceField(this)" style="position: absolute; top: 12px; right: 12px; width: 28px; height: 28px; font-size: 10px;" title="Remove Entry">✕</button>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;">
+          <div class="form-group" style="margin-bottom: 0;">
+            <label class="form-label">Period (e.g. 2016 — Present)</label>
+            <input class="form-input exp-period-input" type="text" placeholder="2016 — Present" value="${escapeAttr(data.period || '')}">
+          </div>
+          <div class="form-group" style="margin-bottom: 0; display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: 2px;">
+            <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 13px; color: var(--text-secondary);">
+              <input type="checkbox" class="exp-current-input" ${data.isCurrent ? 'checked' : ''} style="accent-color: var(--cyan); width: 16px; height: 16px; flex-shrink: 0;">
+              <span style="color: var(--cyan); font-weight: 600;">● Show "Currently Here" Badge</span>
+            </label>
+          </div>
+          <div class="form-group" style="margin-bottom: 0;">
+            <label class="form-label">Job Role / Title *</label>
+            <input class="form-input exp-role-input" type="text" placeholder="e.g. Video Editor" value="${escapeAttr(data.role || '')}">
+          </div>
+          <div class="form-group" style="margin-bottom: 0;">
+            <label class="form-label">Company Name *</label>
+            <input class="form-input exp-company-input" type="text" placeholder="e.g. Dinamalar.com (Web TV)" value="${escapeAttr(data.company || '')}">
+          </div>
+          <div class="form-group" style="margin-bottom: 0; grid-column: span 2;">
+            <label class="form-label">Company URL (optional — makes name a link)</label>
+            <input class="form-input exp-url-input" type="url" placeholder="https://www.youtube.com/c/Dinamalardaily" value="${escapeAttr(data.companyUrl || '')}">
+          </div>
+        </div>
+
+        <div style="font-size: 11px; font-weight: 700; color: var(--cyan); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px;">✦ Bullet Points (Responsibilities)</div>
+        <div class="bullets-container" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px;">
+          ${bullets.map(b => `
+            <div class="bullet-row" style="display: flex; gap: 8px; align-items: center;">
+              <span style="color: var(--cyan); flex-shrink: 0; font-size: 14px;">✦</span>
+              <input class="form-input exp-bullet-input" type="text" placeholder="e.g. Post-Production : Editing high-impact news..." value="${escapeAttr(b)}" style="flex: 1;">
+              <button type="button" class="btn btn-danger btn-icon" onclick="removeBulletField(this)" style="width: 30px; height: 30px; padding: 0; flex-shrink: 0; font-size: 11px;" title="Remove Bullet">✕</button>
+            </div>`).join('')}
+        </div>
+        <button type="button" class="btn btn-secondary btn-sm" onclick="addBulletField(this)" style="font-size: 12px;">
+          <svg viewBox="0 0 24 24" style="width:13px;height:13px;"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+          Add Bullet Point
+        </button>
+      `;
+      container.appendChild(div);
+    }
+
+    function removeExperienceField(button) {
+      button.closest('.exp-form-item').remove();
+    }
+
+    function addBulletField(button) {
+      const container = button.previousElementSibling; // .bullets-container
+      const row = document.createElement('div');
+      row.className = 'bullet-row';
+      row.style.cssText = 'display: flex; gap: 8px; align-items: center;';
+      row.innerHTML = `
+        <span style="color: var(--cyan); flex-shrink: 0; font-size: 14px;">✦</span>
+        <input class="form-input exp-bullet-input" type="text" placeholder="e.g. Responsibility description..." style="flex: 1;">
+        <button type="button" class="btn btn-danger btn-icon" onclick="removeBulletField(this)" style="width: 30px; height: 30px; padding: 0; flex-shrink: 0; font-size: 11px;" title="Remove Bullet">✕</button>
+      `;
+      container.appendChild(row);
+    }
+
+    function removeBulletField(button) {
+      button.closest('.bullet-row').remove();
+    }
+
+    function populateProfileFields(profile) {
+      if (!profile) return;
+      if (profile.hero) {
+        document.getElementById('profNavLogo').value = profile.hero.navLogo || '';
+        document.getElementById('profHeroTag').value = profile.hero.tag || '';
+        document.getElementById('profHeroName').value = profile.hero.name || '';
+        document.getElementById('profHeroTitle').value = profile.hero.title || '';
+        document.getElementById('profHeroDesc').value = profile.hero.desc || '';
+      }
+      if (profile.skills) {
+        document.getElementById('profSkillsTechnical').value = profile.skills.technical || '';
+        document.getElementById('profSkillsAi').value = profile.skills.ai || '';
+        document.getElementById('profSkillsCore').value = profile.skills.core || '';
+        document.getElementById('profSkillsPersonal').value = profile.skills.personal || '';
+      }
+
+      // Render education list
+      const eduContainer = document.getElementById('educationFieldsContainer');
+      eduContainer.innerHTML = '';
+      if (Array.isArray(profile.education)) {
+        profile.education.forEach(e => {
+          addEducationField(e);
+        });
+      }
+      if (eduContainer.children.length === 0) {
+        addEducationField();
+      }
+
+      // Render achievements list
+      const achContainer = document.getElementById('achievementFieldsContainer');
+      achContainer.innerHTML = '';
+      if (Array.isArray(profile.achievements)) {
+        profile.achievements.forEach(a => {
+          addAchievementField(a);
+        });
+      }
+      if (achContainer.children.length === 0) {
+        addAchievementField();
+      }
+
+      // Render experience list
+      const expContainer = document.getElementById('experienceFieldsContainer');
+      expContainer.innerHTML = '';
+      if (Array.isArray(profile.experience)) {
+        profile.experience.forEach(ex => addExperienceField(ex));
+      }
+      if (expContainer.children.length === 0) {
+        addExperienceField();
+      }
+
+      if (profile.contact) {
+        document.getElementById('profContactPhone').value = profile.contact.phone || '';
+        document.getElementById('profContactEmail').value = profile.contact.email || '';
+        document.getElementById('profContactBlog').value = profile.contact.blog || '';
+        document.getElementById('profContactLoc').value = profile.contact.location || '';
+      }
+      if (profile.socials) {
+        document.getElementById('profSocYoutube').value = profile.socials.youtube || '';
+        document.getElementById('profSocInsta').value = profile.socials.instagram || '';
+        document.getElementById('profSocFb').value = profile.socials.facebook || '';
+        document.getElementById('profSocTwitter').value = profile.socials.twitter || '';
+        document.getElementById('profSocLinkedin').value = profile.socials.linkedin || '';
+      }
+    }
+
+    function handleProfileSubmit(e) {
+      e.preventDefault();
+
+      const education = [];
+      document.querySelectorAll('.edu-form-item').forEach(item => {
+        const year = item.querySelector('.edu-year-input').value.trim();
+        const degree = item.querySelector('.edu-degree-input').value.trim();
+        const institution = item.querySelector('.edu-inst-input').value.trim();
+        const score = item.querySelector('.edu-score-input').value.trim();
+        if (year || degree || institution) {
+          education.push({ year, degree, institution, score });
+        }
+      });
+
+      const achievements = [];
+      document.querySelectorAll('.ach-form-item').forEach(item => {
+        const icon = item.querySelector('.ach-icon-input').value.trim();
+        const title = item.querySelector('.ach-title-input').value.trim();
+        const description = item.querySelector('.ach-desc-input').value.trim();
+        const linkLabel = item.querySelector('.ach-label-input').value.trim();
+        const linkUrl = item.querySelector('.ach-url-input').value.trim();
+        if (title || description) {
+          achievements.push({ icon, title, description, linkLabel, linkUrl });
+        }
+      });
+
+      const experience = [];
+      document.querySelectorAll('.exp-form-item').forEach(item => {
+        const period = item.querySelector('.exp-period-input').value.trim();
+        const isCurrent = item.querySelector('.exp-current-input').checked;
+        const role = item.querySelector('.exp-role-input').value.trim();
+        const company = item.querySelector('.exp-company-input').value.trim();
+        const companyUrl = item.querySelector('.exp-url-input').value.trim();
+        const bullets = [];
+        item.querySelectorAll('.exp-bullet-input').forEach(inp => {
+          const val = inp.value.trim();
+          if (val) bullets.push(val);
+        });
+        if (role || company) {
+          experience.push({ period, isCurrent, role, company, companyUrl, bullets });
+        }
+      });
+
+      const profile = {
+        hero: {
+          navLogo: document.getElementById('profNavLogo').value.trim(),
+          tag: document.getElementById('profHeroTag').value.trim(),
+          name: document.getElementById('profHeroName').value.trim(),
+          title: document.getElementById('profHeroTitle').value.trim(),
+          desc: document.getElementById('profHeroDesc').value.trim()
+        },
+        skills: {
+          technical: document.getElementById('profSkillsTechnical').value.trim(),
+          ai: document.getElementById('profSkillsAi').value.trim(),
+          core: document.getElementById('profSkillsCore').value.trim(),
+          personal: document.getElementById('profSkillsPersonal').value.trim()
+        },
+        education: education,
+        achievements: achievements,
+        experience: experience,
+        contact: {
+          phone: document.getElementById('profContactPhone').value.trim(),
+          email: document.getElementById('profContactEmail').value.trim(),
+          blog: document.getElementById('profContactBlog').value.trim(),
+          location: document.getElementById('profContactLoc').value.trim()
+        },
+        socials: {
+          youtube: document.getElementById('profSocYoutube').value.trim(),
+          instagram: document.getElementById('profSocInsta').value.trim(),
+          facebook: document.getElementById('profSocFb').value.trim(),
+          twitter: document.getElementById('profSocTwitter').value.trim(),
+          linkedin: document.getElementById('profSocLinkedin').value.trim()
+        }
+      };
+
+      db.ref('profile').set(profile).then(() => {
+        showToast('success', 'Profile details updated successfully!');
+      }).catch((error) => {
+        console.error("Firebase save failed: ", error);
+        showToast('error', 'Profile details save failed.');
+      });
+    }
+
+    // ─── Boot ───
+    init();
+  </script>
+</body>
+
+</html>
