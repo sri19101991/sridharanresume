@@ -4,7 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Professional portfolio and resume of M. Sridharan, a Video Editor & Post-Production Specialist based in Puducherry, India. Featuring showreels, achievements, and contact information.">
+  <meta name="description"
+    content="Professional portfolio and resume of M. Sridharan, a Video Editor & Post-Production Specialist based in Puducherry, India. Featuring showreels, achievements, and contact information.">
   <title>M. Sridharan — Video Editor & Post-Production Specialist</title>
   <link
     href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,300&family=DM+Mono:wght@400;500&display=swap"
@@ -500,7 +501,7 @@
       gap: 0 60px;
       padding: 56px 0;
       border-top: 1px solid var(--border);
-      transition: background 0.3s ease;
+      transition: background 0.3s ease, padding-left 0.3s ease, border-color 0.3s ease;
     }
 
     .exp-card:last-child {
@@ -508,7 +509,9 @@
     }
 
     .exp-card:hover {
-      background: linear-gradient(90deg, rgba(255, 255, 255, 0.02) 0%, transparent 100%);
+      background: linear-gradient(90deg, rgba(0, 240, 255, 0.04) 0%, transparent 80%);
+      border-top-color: rgba(0, 240, 255, 0.3);
+      padding-left: 12px;
     }
 
     .exp-period {
@@ -1406,7 +1409,8 @@
       height: 100%;
       object-fit: cover;
       position: absolute;
-      top: 0; left: 0;
+      top: 0;
+      left: 0;
       transition: transform 0.4s ease, filter 0.4s ease;
       filter: brightness(0.7);
     }
@@ -1426,13 +1430,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 30px rgba(0,245,212,0.5), 0 0 60px rgba(139,92,246,0.3);
+      box-shadow: 0 0 30px rgba(0, 245, 212, 0.5), 0 0 60px rgba(139, 92, 246, 0.3);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .modal-video-pane:hover .modal-play-btn {
       transform: scale(1.15);
-      box-shadow: 0 0 40px rgba(0,245,212,0.8), 0 0 80px rgba(139,92,246,0.5);
+      box-shadow: 0 0 40px rgba(0, 245, 212, 0.8), 0 0 80px rgba(139, 92, 246, 0.5);
     }
 
     .modal-play-btn svg {
@@ -1448,13 +1452,13 @@
       left: 50%;
       transform: translateX(-50%);
       z-index: 3;
-      color: rgba(255,255,255,0.75);
+      color: rgba(255, 255, 255, 0.75);
       font-size: 0.78rem;
       letter-spacing: 0.05em;
       display: flex;
       align-items: center;
       gap: 6px;
-      background: rgba(0,0,0,0.4);
+      background: rgba(0, 0, 0, 0.4);
       padding: 5px 14px;
       border-radius: 20px;
       backdrop-filter: blur(6px);
@@ -1727,6 +1731,7 @@
       .carousel-card {
         flex: 0 0 calc((100% - 24px) / 2);
       }
+
       .carousel-container {
         padding: 0 40px;
       }
@@ -1736,12 +1741,16 @@
       .carousel-card {
         flex: 0 0 100%;
       }
+
       .carousel-container {
         padding: 0;
       }
+
       .carousel-nav {
-        display: none; /* Hide arrow navigation on mobile in favor of swipe */
+        display: none;
+        /* Hide arrow navigation on mobile in favor of swipe */
       }
+
       .portfolio-carousel-sec {
         padding: 80px 4vw;
       }
@@ -1777,7 +1786,8 @@
       <div class="hero-tag" id="cms-hero-tag">Post-Production Specialist · Puducherry, India</div>
       <h1 class="hero-name" id="cms-hero-name">M. <span>SRIDHARAN</span></h1>
       <p class="hero-title" id="cms-hero-title">Video Editor &amp; AI-Assisted Media Producer</p>
-      <p class="hero-desc" id="cms-hero-desc">Creative and detail-oriented Video Editor with strong experience in post-production for
+      <p class="hero-desc" id="cms-hero-desc">Creative and detail-oriented Video Editor with strong experience in
+        post-production for
         Media, TV, and digital platforms. Leveraging advanced editing, storytelling, and AI-assisted production skills
         to deliver high-quality visual content.</p>
       <div class="hero-cta">
@@ -1864,12 +1874,14 @@
 
     <div class="carousel-container">
       <button class="carousel-nav prev disabled" id="carouselPrevBtn" aria-label="Previous Slide">
-        <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+        <svg viewBox="0 0 24 24">
+          <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+        </svg>
       </button>
 
       <div class="carousel-track-wrapper" id="carouselTrackWrapper">
         <div class="carousel-track" id="carouselTrack">
-          
+
           <!-- Carousel Card 1 -->
           <div class="carousel-card film-card glass-card reveal" data-category="motion" data-yt-id="6gmppgrrXww"
             data-title="360° VR Immersive Journey" data-client="Travel &amp; Beyond"
@@ -1910,7 +1922,8 @@
               <div>
                 <span class="film-card-category">360° VR &amp; Immersive</span>
                 <h3 class="film-card-title">360° VR Immersive Journey</h3>
-                <p class="film-card-desc">Spatial audio rendering, seamless VR stitching, and post-production coloring.</p>
+                <p class="film-card-desc">Spatial audio rendering, seamless VR stitching, and post-production coloring.
+                </p>
               </div>
               <div class="film-meta-row">
                 <span>Immersive</span>
@@ -1970,9 +1983,8 @@
 
           <!-- Carousel Card 3 -->
           <div class="carousel-card film-card glass-card reveal" data-category="commercial" data-yt-id="FkUn86W1jBc"
-            data-title="Luxury Watch Commercial" data-client="Chronos Timepieces"
-            data-role="Video Editor" data-tools="Premiere Pro, Adobe Audition, Speed Ramps"
-            data-duration="01:30"
+            data-title="Luxury Watch Commercial" data-client="Chronos Timepieces" data-role="Video Editor"
+            data-tools="Premiere Pro, Adobe Audition, Speed Ramps" data-duration="01:30"
             data-description="A premium product commercial displaying speed ramping, audio sync with heavy bass beats, macro details contrast correction, and clean typography layouts to drive a high-end feel.">
             <div class="sprocket-strip">
               <div class="sprocket-hole"></div>
@@ -2057,7 +2069,8 @@
               <div>
                 <span class="film-card-category">Documentary &amp; Storytelling</span>
                 <h3 class="film-card-title">Unsung Heroes Documentary</h3>
-                <p class="film-card-desc">Emotional story pacing, vintage tone overlays, and high quality audio restoration.</p>
+                <p class="film-card-desc">Emotional story pacing, vintage tone overlays, and high quality audio
+                  restoration.</p>
               </div>
               <div class="film-meta-row">
                 <span>Documentary</span>
@@ -2070,7 +2083,9 @@
       </div>
 
       <button class="carousel-nav next" id="carouselNextBtn" aria-label="Next Slide">
-        <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+        <svg viewBox="0 0 24 24">
+          <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+        </svg>
       </button>
     </div>
 
@@ -2079,33 +2094,35 @@
 
   <section id="experience">
     <div class="section-label">Career</div>
-    <h2 class="section-title">Work Experience 10 Years</h2>
-    <div class="exp-card reveal">
-      <div>
-        <div class="exp-period">2016 — Present</div>
-        <div class="exp-present"><span>●</span> Currently Here</div>
-      </div>
-      <div>
-        <div class="exp-role">Video Editor</div>
-        <div class="exp-company">
-          <a href="https://www.youtube.com/c/Dinamalardaily" target="_blank"
-            style="color: var(--cyan); text-decoration: none;">
-            Dinamalar.com (Web TV) <span style="font-size: 0.8em;">↗</span>
-          </a>
+    <h2 class="section-title">Work Experience</h2>
+    <div id="cms-experience-cards">
+      <div class="exp-card reveal">
+        <div>
+          <div class="exp-period">2016 — Present</div>
+          <div class="exp-present"><span>●</span> Currently Here</div>
         </div>
-        <ul class="exp-list">
-          <li>Post-Production : Editing high-impact news, montage videos, and commercials.</li>
-          <li>Live Broadcast Management : Operating vMix and OBS Studio for real-time web TV broadcasts, ensuring
-            seamless transitions and technical stability.</li>
-          <li>Social Media Management : Managing and optimizing video content distribution across YouTube, Facebook, and
-            Twitter to maximize engagement.</li>
-          <li>Visual Marketing : Designing high-CTR (Click-Through Rate) custom thumbnails using Photoshop and AI tools
-            to boost viewership.</li>
-          <li>Collaboration : Working closely with news desks and producers to deliver breaking news under strict
-            deadlines.</li>
-        </ul>
+        <div>
+          <div class="exp-role">Video Editor</div>
+          <div class="exp-company">
+            <a href="https://www.youtube.com/c/Dinamalardaily" target="_blank"
+              style="color: var(--cyan); text-decoration: none;">
+              Dinamalar.com (Web TV) <span style="font-size: 0.8em;">↗</span>
+            </a>
+          </div>
+          <ul class="exp-list">
+            <li><strong>Post-Production</strong> — Editing high-impact news, montage videos, and commercials.</li>
+            <li><strong>Live Broadcast Management</strong> — Operating vMix and OBS Studio for real-time web TV
+              broadcasts, ensuring seamless transitions and technical stability.</li>
+            <li><strong>Social Media Management</strong> — Managing and optimizing video content distribution across
+              YouTube, Facebook, and Twitter to maximize engagement.</li>
+            <li><strong>Visual Marketing</strong> — Designing high-CTR custom thumbnails using Photoshop and AI tools to
+              boost viewership.</li>
+            <li><strong>Collaboration</strong> — Working closely with news desks and producers to deliver breaking news
+              under strict deadlines.</li>
+          </ul>
+        </div>
       </div>
-    </div>
+
   </section>
 
   <section id="skills">
@@ -2245,8 +2262,10 @@
         <div class="ach-icon">▶️</div>
         <div class="ach-text">
           <h3>YouTube Channel — VIDHI</h3>
-          <p>Personal creative channel showcasing 360-degree videos, immersive visual experiences, post-production techniques, and original creative video editing.</p>
-          <a href="https://www.youtube.com/channel/UClFEghqB_mUZPCuXrEKMh0w" target="_blank" rel="noopener">→ Visit Channel</a>
+          <p>Personal creative channel showcasing 360-degree videos, immersive visual experiences, post-production
+            techniques, and original creative video editing.</p>
+          <a href="https://www.youtube.com/channel/UClFEghqB_mUZPCuXrEKMh0w" target="_blank" rel="noopener">→ Visit
+            Channel</a>
         </div>
       </div>
     </div>
@@ -2261,22 +2280,24 @@
           <div class="contact-item-icon">📱</div>
           <div>
             <div class="contact-item-label">Phone</div>
-            <div class="contact-item-value"><a href="tel:+918110085264" id="cms-contact-phone-link">+91 81100 85264</a></div>
+            <div class="contact-item-value"><a href="tel:+918110085264" id="cms-contact-phone-link">+91 81100 85264</a>
+            </div>
           </div>
         </div>
         <div class="contact-item glass-card reveal">
           <div class="contact-item-icon">✉️</div>
           <div>
             <div class="contact-item-label">Email</div>
-            <div class="contact-item-value"><a href="mailto:sridharan19@icloud.com" id="cms-contact-email-link">sridharan19@icloud.com</a></div>
+            <div class="contact-item-value"><a href="mailto:sridharan19@icloud.com"
+                id="cms-contact-email-link">sridharan19@icloud.com</a></div>
           </div>
         </div>
         <div class="contact-item glass-card reveal">
           <div class="contact-item-icon">🌐</div>
           <div>
             <div class="contact-item-label">Blog</div>
-            <div class="contact-item-value"><a href="https://sridharan19.blogspot.com"
-                target="_blank" id="cms-contact-blog-link">sridharan19.blogspot.com</a></div>
+            <div class="contact-item-value"><a href="https://sridharan19.blogspot.com" target="_blank"
+                id="cms-contact-blog-link">sridharan19.blogspot.com</a></div>
           </div>
         </div>
         <div class="contact-item glass-card reveal">
@@ -2289,19 +2310,23 @@
       </div>
       <div class="social-links reveal">
         <div class="social-title">Social Media</div>
-        <a href="https://www.youtube.com/channel/UClFEghqB_mUZPCuXrEKMh0w" class="social-item glass-card" target="_blank" id="cms-social-youtube">
+        <a href="https://www.youtube.com/channel/UClFEghqB_mUZPCuXrEKMh0w" class="social-item glass-card"
+          target="_blank" id="cms-social-youtube">
           <span class="social-item-icon">▶</span><span class="social-item-text">YouTube: VIDHI</span>
         </a>
-        <a href="https://www.instagram.com/vidhi.360.videos/reels/" class="social-item glass-card" target="_blank" id="cms-social-instagram">
+        <a href="https://www.instagram.com/vidhi.360.videos/reels/" class="social-item glass-card" target="_blank"
+          id="cms-social-instagram">
           <span class="social-item-icon">📸</span><span class="social-item-text">Instagram: @vidhi.360.videos</span>
         </a>
-        <a href="https://www.facebook.com/profile.php?id=61590363465464" class="social-item glass-card" target="_blank" id="cms-social-facebook">
+        <a href="https://www.facebook.com/profile.php?id=61590363465464" class="social-item glass-card" target="_blank"
+          id="cms-social-facebook">
           <span class="social-item-icon">f</span><span class="social-item-text">Facebook: Vidhi 360 Videos</span>
         </a>
         <a href="https://x.com/M_sridharan19" class="social-item glass-card" target="_blank" id="cms-social-twitter">
           <span class="social-item-icon">𝕏</span><span class="social-item-text">twitter.com</span>
         </a>
-        <a href="https://www.linkedin.com/in/sridharan-m-231b71ba" class="social-item glass-card" target="_blank" id="cms-social-linkedin">
+        <a href="https://www.linkedin.com/in/sridharan-m-231b71ba" class="social-item glass-card" target="_blank"
+          id="cms-social-linkedin">
           <span class="social-item-icon">in</span><span class="social-item-text">www.linkedin.com</span>
         </a>
       </div>
@@ -2555,7 +2580,7 @@
     function slideToIndex(index) {
       const cardWidth = cards[0].offsetWidth;
       const gap = 24; // matches CSS gap
-      
+
       // Bound checking
       const maxIndex = cards.length - cardsPerView;
       if (index < 0) index = 0;
@@ -2635,20 +2660,20 @@
       if (!isDragging) return;
       const currentX = getPositionX(event);
       const diff = currentX - startX;
-      
+
       // Slow down dragging at borders (rubber band effect)
       const maxIndex = cards.length - cardsPerView;
       const cardWidth = cards[0].offsetWidth;
       const gap = 24;
       const limit = -maxIndex * (cardWidth + gap);
-      
+
       let targetTranslate = prevTranslate + diff;
       if (targetTranslate > 0) {
         targetTranslate = diff * 0.3; // ease overflow on left
       } else if (targetTranslate < limit) {
         targetTranslate = limit + (targetTranslate - limit) * 0.3; // ease overflow on right
       }
-      
+
       currentTranslate = targetTranslate;
     }
 
@@ -2660,7 +2685,7 @@
 
       const movedBy = currentTranslate - prevTranslate;
       const cardWidth = cards[0].offsetWidth;
-      
+
       // Threshold to trigger slide change (15% of slide width)
       const threshold = cardWidth * 0.15;
 
@@ -2727,7 +2752,7 @@
     function reinitCarousel() {
       // Re-query cards
       cards = Array.from(track.querySelectorAll('.carousel-card'));
-      
+
       // Re-observe reveal cards and apply delay
       track.querySelectorAll('.reveal').forEach((card, i) => {
         card.style.transitionDelay = `${i * 0.08}s`;
@@ -2929,13 +2954,42 @@
         setSocialLink('cms-social-twitter', soc.twitter, 'Twitter: ');
         setSocialLink('cms-social-linkedin', soc.linkedin, 'LinkedIn: ');
       }
+
+      // 7. Work Experience
+      if (profile.experience && Array.isArray(profile.experience)) {
+        const expCards = document.getElementById('cms-experience-cards');
+        if (expCards) {
+          expCards.innerHTML = profile.experience.map(exp => {
+            const currentBadge = exp.isCurrent
+              ? `<div class="exp-present"><span>&#9679;</span> Currently Here</div>`
+              : '';
+            const companyHtml = exp.companyUrl
+              ? `<a href="${escapeAttr(exp.companyUrl)}" target="_blank" style="color: var(--cyan); text-decoration: none;">${escapeHtml(exp.company)} <span style="font-size: 0.8em;">&#x2197;</span></a>`
+              : escapeHtml(exp.company || '');
+            const bulletsHtml = (exp.bullets || []).map(b => `<li>${escapeHtml(b)}</li>`).join('');
+            return `
+              <div class="exp-card reveal visible">
+                <div>
+                  <div class="exp-period">${escapeHtml(exp.period || '')}</div>
+                  ${currentBadge}
+                </div>
+                <div>
+                  <div class="exp-role">${escapeHtml(exp.role || '')}</div>
+                  <div class="exp-company">${companyHtml}</div>
+                  <ul class="exp-list">${bulletsHtml}</ul>
+                </div>
+              </div>
+            `;
+          }).join('');
+        }
+      }
     }
 
     // Initialize Firebase and set up listeners
     try {
       firebase.initializeApp(firebaseConfig);
       const database = firebase.database();
-      
+
       // Sync Projects
       database.ref('projects').on('value', (snapshot) => {
         const data = snapshot.val();
