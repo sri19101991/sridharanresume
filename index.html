@@ -2312,22 +2312,22 @@
         <div class="social-title">Social Media</div>
         <a href="https://www.youtube.com/channel/UClFEghqB_mUZPCuXrEKMh0w" class="social-item glass-card"
           target="_blank" id="cms-social-youtube">
-          <span class="social-item-icon">▶</span><span class="social-item-text">YouTube: VIDHI</span>
+          <span class="social-item-icon">▶</span><span class="social-item-text">YouTube</span>
         </a>
         <a href="https://www.instagram.com/vidhi.360.videos/reels/" class="social-item glass-card" target="_blank"
           id="cms-social-instagram">
-          <span class="social-item-icon">📸</span><span class="social-item-text">Instagram: @vidhi.360.videos</span>
+          <span class="social-item-icon">📸</span><span class="social-item-text">Instagram</span>
         </a>
         <a href="https://www.facebook.com/profile.php?id=61590363465464" class="social-item glass-card" target="_blank"
           id="cms-social-facebook">
-          <span class="social-item-icon">f</span><span class="social-item-text">Facebook: Vidhi 360 Videos</span>
+          <span class="social-item-icon">f</span><span class="social-item-text">Facebook</span>
         </a>
         <a href="https://x.com/M_sridharan19" class="social-item glass-card" target="_blank" id="cms-social-twitter">
-          <span class="social-item-icon">𝕏</span><span class="social-item-text">twitter.com</span>
+          <span class="social-item-icon">𝕏</span><span class="social-item-text">Twitter</span>
         </a>
         <a href="https://www.linkedin.com/in/sridharan-m-231b71ba" class="social-item glass-card" target="_blank"
           id="cms-social-linkedin">
-          <span class="social-item-icon">in</span><span class="social-item-text">www.linkedin.com</span>
+          <span class="social-item-icon">in</span><span class="social-item-text">LinkedIn</span>
         </a>
       </div>
     </div>
@@ -2938,21 +2938,26 @@
       // 6. Social Links
       if (profile.socials) {
         const soc = profile.socials;
-        const setSocialLink = (elementId, url, labelPrefix) => {
+        const setSocialLink = (elementId, url, label) => {
           const link = document.getElementById(elementId);
-          if (link && url) {
-            link.href = url;
-            const textSpan = link.querySelector('.social-item-text');
-            if (textSpan) {
-              textSpan.textContent = labelPrefix + url.split('/').pop().replace(/\/$/, '');
+          if (link) {
+            if (url && url.trim()) {
+              link.href = url;
+              link.style.display = '';
+              const textSpan = link.querySelector('.social-item-text');
+              if (textSpan) {
+                textSpan.textContent = label;
+              }
+            } else {
+              link.style.display = 'none';
             }
           }
         };
-        setSocialLink('cms-social-youtube', soc.youtube, 'YouTube: ');
-        setSocialLink('cms-social-instagram', soc.instagram, 'Instagram: ');
-        setSocialLink('cms-social-facebook', soc.facebook, 'Facebook: ');
-        setSocialLink('cms-social-twitter', soc.twitter, 'Twitter: ');
-        setSocialLink('cms-social-linkedin', soc.linkedin, 'LinkedIn: ');
+        setSocialLink('cms-social-youtube', soc.youtube, 'YouTube');
+        setSocialLink('cms-social-instagram', soc.instagram, 'Instagram');
+        setSocialLink('cms-social-facebook', soc.facebook, 'Facebook');
+        setSocialLink('cms-social-twitter', soc.twitter, 'Twitter');
+        setSocialLink('cms-social-linkedin', soc.linkedin, 'LinkedIn');
       }
 
       // 7. Work Experience
