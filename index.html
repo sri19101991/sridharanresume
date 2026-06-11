@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Professional portfolio and resume of M. Sridharan, a Video Editor & Post-Production Specialist based in Puducherry, India. Featuring showreels, achievements, and contact information.">
   <title>M. Sridharan — Video Editor & Post-Production Specialist</title>
   <link
     href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,300&family=DM+Mono:wght@400;500&display=swap"
@@ -1099,6 +1100,652 @@
         transform: scale(1.15) translateY(-5px);
       }
     }
+
+    /* ========================================== */
+    /* Showreel & Video Grid Styles (Film Theme)  */
+    /* ========================================== */
+    #showreel {
+      padding: 120px 6vw;
+      position: relative;
+      z-index: 1;
+    }
+
+    .showreel-filters {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 48px;
+      animation: fadeUp 0.8s 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .filter-btn {
+      background: var(--glass);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 10px 24px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'DM Mono', monospace;
+    }
+
+    .filter-btn:hover {
+      border-color: rgba(0, 240, 255, 0.4);
+      color: var(--white);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 240, 255, 0.1);
+    }
+
+    .filter-btn.active {
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      color: var(--navy);
+      border-color: transparent;
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+      font-weight: 700;
+    }
+
+    .showreel-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 36px;
+      margin-top: 24px;
+    }
+
+    /* Film Card Element */
+    .film-card {
+      background: var(--navy2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      cursor: pointer;
+    }
+
+    .film-card.hidden-card {
+      display: none;
+      opacity: 0;
+      transform: scale(0.8);
+    }
+
+    /* Sprocket Strip representing 35mm film holes */
+    .sprocket-strip {
+      height: 22px;
+      background: #090d16;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 0 10px;
+    }
+
+    .sprocket-strip-bottom {
+      border-bottom: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .sprocket-hole {
+      width: 10px;
+      height: 12px;
+      background: var(--navy);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 2px;
+      box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.8);
+    }
+
+    /* Thumbnail Container */
+    .film-thumb-container {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: #000;
+      overflow: hidden;
+    }
+
+    .film-thumb {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+      opacity: 0.85;
+    }
+
+    /* Translucent neon linear gradient overlay */
+    .film-thumb-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(3, 7, 18, 0.1), rgba(3, 7, 18, 0.7));
+      z-index: 1;
+      transition: opacity 0.4s;
+    }
+
+    .play-btn-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(17, 24, 39, 0.8);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border: 2px solid var(--cyan);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--cyan);
+      font-size: 20px;
+      z-index: 2;
+      opacity: 0.8;
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .play-btn-overlay svg {
+      width: 24px;
+      height: 24px;
+      fill: currentColor;
+      margin-left: 3px;
+      /* visual balance */
+      transition: transform 0.3s;
+    }
+
+    /* Film Card Footer */
+    .film-card-footer {
+      padding: 24px;
+      background: linear-gradient(180deg, #111827, #0d121f);
+      border-top: 1px solid rgba(255, 255, 255, 0.03);
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .film-card-category {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .film-card-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 0.05em;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 12px;
+      transition: color 0.3s;
+    }
+
+    .film-card-desc {
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .film-meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 12px;
+      font-family: 'DM Mono', monospace;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .film-duration-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 4px 10px;
+      border-radius: 12px;
+      color: var(--gold);
+    }
+
+    /* Film Card Hover States */
+    .film-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(0, 240, 255, 0.25);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 240, 255, 0.1);
+    }
+
+    .film-card:hover .film-thumb {
+      transform: scale(1.08);
+      opacity: 1;
+    }
+
+    .film-card:hover .film-card-title {
+      color: var(--cyan);
+    }
+
+    .film-card:hover .play-btn-overlay {
+      background: var(--cyan);
+      color: var(--navy);
+      transform: translate(-50%, -50%) scale(1.1);
+      box-shadow: 0 0 25px var(--cyan);
+      opacity: 1;
+      border-color: transparent;
+    }
+
+    .film-card:hover .play-btn-overlay svg {
+      transform: scale(1.1);
+    }
+
+    /* Video Lightbox Modal */
+    .video-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(3, 7, 18, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .video-modal.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal-content-container {
+      width: 100%;
+      max-width: 1100px;
+      background: var(--navy2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.8fr 1fr;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+      transform: scale(0.92);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .video-modal.active .modal-content-container {
+      transform: scale(1);
+    }
+
+    .modal-video-pane {
+      background: #000;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .modal-video-pane img.modal-yt-thumb {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0; left: 0;
+      transition: transform 0.4s ease, filter 0.4s ease;
+      filter: brightness(0.7);
+    }
+
+    .modal-video-pane:hover img.modal-yt-thumb {
+      transform: scale(1.04);
+      filter: brightness(0.5);
+    }
+
+    .modal-play-btn {
+      position: relative;
+      z-index: 2;
+      width: 72px;
+      height: 72px;
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 30px rgba(0,245,212,0.5), 0 0 60px rgba(139,92,246,0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .modal-video-pane:hover .modal-play-btn {
+      transform: scale(1.15);
+      box-shadow: 0 0 40px rgba(0,245,212,0.8), 0 0 80px rgba(139,92,246,0.5);
+    }
+
+    .modal-play-btn svg {
+      width: 30px;
+      height: 30px;
+      fill: #fff;
+      margin-left: 4px;
+    }
+
+    .modal-yt-label {
+      position: absolute;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      color: rgba(255,255,255,0.75);
+      font-size: 0.78rem;
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0,0,0,0.4);
+      padding: 5px 14px;
+      border-radius: 20px;
+      backdrop-filter: blur(6px);
+      white-space: nowrap;
+    }
+
+    .modal-yt-label svg {
+      width: 14px;
+      height: 14px;
+      fill: #ff4444;
+      flex-shrink: 0;
+    }
+
+    .modal-details-pane {
+      padding: 36px;
+      background: #111827;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow-y: auto;
+      max-height: 620px;
+      border-left: 1px solid var(--border);
+      position: relative;
+    }
+
+    .modal-details-header {
+      margin-bottom: 24px;
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.3s;
+      z-index: 10;
+    }
+
+    .modal-close-btn:hover {
+      background: #ef4444;
+      border-color: transparent;
+      transform: rotate(90deg);
+      box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
+    }
+
+    .modal-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--purple);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 12px;
+      display: inline-block;
+    }
+
+    .modal-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px;
+      letter-spacing: 0.05em;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 16px;
+      padding-right: 28px;
+      /* avoid close btn overlap */
+    }
+
+    .modal-desc {
+      font-size: 14px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 24px;
+    }
+
+    .modal-specs-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .modal-spec-item {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      font-size: 13px;
+    }
+
+    .modal-spec-label {
+      font-family: 'DM Mono', monospace;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .modal-spec-value {
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    .modal-tools-used {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .modal-tool-badge {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      padding: 3px 8px;
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid rgba(139, 92, 246, 0.2);
+      border-radius: 4px;
+      color: var(--purple);
+    }
+
+    /* Video Lightbox Responsiveness */
+    @media (max-width: 900px) {
+      .modal-content-container {
+        grid-template-columns: 1fr;
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+
+      .modal-details-pane {
+        max-height: none;
+        border-left: none;
+        border-top: 1px solid var(--border);
+        padding: 24px;
+      }
+
+      .modal-close-btn {
+        top: 16px;
+        right: 16px;
+      }
+    }
+
+    /* ========================================== */
+    /* Interactive Portfolio Carousel Styles      */
+    /* ========================================== */
+    .portfolio-carousel-sec {
+      padding: 120px 6vw;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .carousel-container {
+      position: relative;
+      width: 100%;
+      margin: 48px auto 0;
+      padding: 0 60px;
+    }
+
+    .carousel-track-wrapper {
+      overflow: hidden;
+      width: 100%;
+      cursor: grab;
+    }
+
+    .carousel-track-wrapper:active {
+      cursor: grabbing;
+    }
+
+    .carousel-track {
+      display: flex;
+      gap: 24px;
+      transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+      will-change: transform;
+    }
+
+    .carousel-card {
+      flex: 0 0 calc((100% - 48px) / 3);
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .carousel-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--glass);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid var(--border);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+      transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .carousel-nav svg {
+      width: 24px;
+      height: 24px;
+      fill: currentColor;
+      transition: transform 0.3s;
+    }
+
+    .carousel-nav.prev {
+      left: 0;
+    }
+
+    .carousel-nav.next {
+      right: 0;
+    }
+
+    .carousel-nav:hover {
+      border-color: var(--cyan);
+      color: var(--cyan);
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+      background: var(--glass-hover);
+    }
+
+    .carousel-nav.prev:hover svg {
+      transform: translateX(-2px);
+    }
+
+    .carousel-nav.next:hover svg {
+      transform: translateX(2px);
+    }
+
+    .carousel-nav.disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 40px;
+    }
+
+    .carousel-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--border);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .carousel-dot.active {
+      background: var(--cyan);
+      width: 24px;
+      border-radius: 4px;
+      box-shadow: 0 0 8px var(--cyan);
+    }
+
+    /* Responsive Carousel adjustments */
+    @media (max-width: 1024px) {
+      .carousel-card {
+        flex: 0 0 calc((100% - 24px) / 2);
+      }
+      .carousel-container {
+        padding: 0 40px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .carousel-card {
+        flex: 0 0 100%;
+      }
+      .carousel-container {
+        padding: 0;
+      }
+      .carousel-nav {
+        display: none; /* Hide arrow navigation on mobile in favor of swipe */
+      }
+      .portfolio-carousel-sec {
+        padding: 80px 4vw;
+      }
+    }
   </style>
 </head>
 
@@ -1111,8 +1758,9 @@
 
   <nav>
     <div class="nav-inner">
-      <div class="nav-logo">M.Sridharan</div>
+      <div class="nav-logo" id="cms-nav-logo">M.Sridharan</div>
       <ul class="nav-links">
+        <li><a href="#portfolio-carousel">Portfolio</a></li>
         <li><a href="#experience">Experience</a></li>
         <li><a href="#skills">Skills</a></li>
         <li><a href="#education">Education</a></li>
@@ -1126,14 +1774,14 @@
     <div class="hero-bg"></div>
     <div class="timeline-line"></div>
     <div class="hero-content">
-      <div class="hero-tag">Post-Production Specialist · Puducherry, India</div>
-      <h1 class="hero-name">M. <span>SRIDHARAN</span></h1>
-      <p class="hero-title">Video Editor &amp; AI-Assisted Media Producer</p>
-      <p class="hero-desc">Creative and detail-oriented Video Editor with strong experience in post-production for
+      <div class="hero-tag" id="cms-hero-tag">Post-Production Specialist · Puducherry, India</div>
+      <h1 class="hero-name" id="cms-hero-name">M. <span>SRIDHARAN</span></h1>
+      <p class="hero-title" id="cms-hero-title">Video Editor &amp; AI-Assisted Media Producer</p>
+      <p class="hero-desc" id="cms-hero-desc">Creative and detail-oriented Video Editor with strong experience in post-production for
         Media, TV, and digital platforms. Leveraging advanced editing, storytelling, and AI-assisted production skills
         to deliver high-quality visual content.</p>
       <div class="hero-cta">
-        <a href="#experience" class="btn btn-primary">View Work ↓</a>
+        <a href="#portfolio-carousel" class="btn btn-primary">View Work ↓</a>
         <a href="#contact" class="btn btn-outline">Get In Touch</a>
       </div>
       <div class="hero-stats">
@@ -1209,6 +1857,226 @@
     </div>
   </div>
 
+  <!-- Portfolio Carousel Section -->
+  <section id="portfolio-carousel" class="portfolio-carousel-sec">
+    <div class="section-label">Showcase</div>
+    <h2 class="section-title">Interactive Portfolio</h2>
+
+    <div class="carousel-container">
+      <button class="carousel-nav prev disabled" id="carouselPrevBtn" aria-label="Previous Slide">
+        <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+      </button>
+
+      <div class="carousel-track-wrapper" id="carouselTrackWrapper">
+        <div class="carousel-track" id="carouselTrack">
+          
+          <!-- Carousel Card 1 -->
+          <div class="carousel-card film-card glass-card reveal" data-category="motion" data-yt-id="6gmppgrrXww"
+            data-title="360° VR Immersive Journey" data-client="Travel &amp; Beyond"
+            data-role="VR Video Editor &amp; Colorist" data-tools="Premiere Pro, After Effects, Mocha VR"
+            data-duration="03:00"
+            data-description="A panoramic virtual tour highlighting seamless spherical stitching, immersive audio spatialization, and motion tracking in VR spaces. Features color-graded spherical outputs.">
+            <div class="sprocket-strip">
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+            </div>
+            <div class="film-thumb-container">
+              <img class="film-thumb" src="https://img.youtube.com/vi/6gmppgrrXww/maxresdefault.jpg"
+                alt="360° VR Immersive Journey Thumbnail">
+              <div class="film-thumb-overlay"></div>
+              <div class="play-btn-overlay">
+                <svg viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </div>
+            </div>
+            <div class="sprocket-strip sprocket-strip-bottom">
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+            </div>
+            <div class="film-card-footer">
+              <div>
+                <span class="film-card-category">360° VR &amp; Immersive</span>
+                <h3 class="film-card-title">360° VR Immersive Journey</h3>
+                <p class="film-card-desc">Spatial audio rendering, seamless VR stitching, and post-production coloring.</p>
+              </div>
+              <div class="film-meta-row">
+                <span>Immersive</span>
+                <span class="film-duration-badge">⏱ 03:00</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Carousel Card 2 -->
+          <div class="carousel-card film-card glass-card reveal" data-category="motion" data-vimeo-id="1194160562"
+            data-title="Cyberpunk Sci-Fi Short Film" data-client="Neon Eclipse Studios"
+            data-role="Lead Colorist &amp; VFX Compositor" data-tools="DaVinci Resolve, Fusion, After Effects"
+            data-duration="04:15"
+            data-description="High-end color grading and visual compositing for a cyberpunk sci-fi short film. Developed neon glowing profiles, integrated HUD holographic elements, and enhanced green-screen backdrops.">
+            <div class="sprocket-strip">
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+            </div>
+            <div class="film-thumb-container">
+              <img class="film-thumb" src="https://vumbnail.com/1194160562.jpg"
+                alt="Cyberpunk Sci-Fi Short Film Thumbnail">
+              <div class="film-thumb-overlay"></div>
+              <div class="play-btn-overlay">
+                <svg viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </div>
+            </div>
+            <div class="sprocket-strip sprocket-strip-bottom">
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+            </div>
+            <div class="film-card-footer">
+              <div>
+                <span class="film-card-category">VFX &amp; Color Grading</span>
+                <h3 class="film-card-title">Cyberpunk Sci-Fi Short Film</h3>
+                <p class="film-card-desc">Cyberpunk neon grading, rotoscoping, HUD design, and composite keying.</p>
+              </div>
+              <div class="film-meta-row">
+                <span>VFX &amp; Grade</span>
+                <span class="film-duration-badge">⏱ 04:15</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Carousel Card 3 -->
+          <div class="carousel-card film-card glass-card reveal" data-category="commercial" data-yt-id="FkUn86W1jBc"
+            data-title="Luxury Watch Commercial" data-client="Chronos Timepieces"
+            data-role="Video Editor" data-tools="Premiere Pro, Adobe Audition, Speed Ramps"
+            data-duration="01:30"
+            data-description="A premium product commercial displaying speed ramping, audio sync with heavy bass beats, macro details contrast correction, and clean typography layouts to drive a high-end feel.">
+            <div class="sprocket-strip">
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+            </div>
+            <div class="film-thumb-container">
+              <img class="film-thumb" src="https://img.youtube.com/vi/FkUn86W1jBc/maxresdefault.jpg"
+                alt="Luxury Watch Commercial Thumbnail">
+              <div class="film-thumb-overlay"></div>
+              <div class="play-btn-overlay">
+                <svg viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </div>
+            </div>
+            <div class="sprocket-strip sprocket-strip-bottom">
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+            </div>
+            <div class="film-card-footer">
+              <div>
+                <span class="film-card-category">Commercial &amp; Promos</span>
+                <h3 class="film-card-title">Luxury Watch Commercial</h3>
+                <p class="film-card-desc">Sync beats, speed ramps, sound design, and color grading details.</p>
+              </div>
+              <div class="film-meta-row">
+                <span>Commercial</span>
+                <span class="film-duration-badge">⏱ 01:30</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Carousel Card 4 -->
+          <div class="carousel-card film-card glass-card reveal" data-category="news" data-vimeo-id="1194160709"
+            data-title="Unsung Heroes Documentary" data-client="Puducherry Cultural Society"
+            data-role="Post-Production Specialist" data-tools="Final Cut Pro X, Adobe Audition, Lightroom"
+            data-duration="05:20"
+            data-description="A moving travel-documentary style narrative celebrating the legacy of unsung local freedom fighters and artists. Retro grading overlays, multi-mic audio mastering, and vintage photo restorations.">
+            <div class="sprocket-strip">
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+            </div>
+            <div class="film-thumb-container">
+              <img class="film-thumb" src="https://vumbnail.com/1194160709.jpg"
+                alt="Unsung Heroes Documentary Thumbnail">
+              <div class="film-thumb-overlay"></div>
+              <div class="play-btn-overlay">
+                <svg viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </div>
+            </div>
+            <div class="sprocket-strip sprocket-strip-bottom">
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+            </div>
+            <div class="film-card-footer">
+              <div>
+                <span class="film-card-category">Documentary &amp; Storytelling</span>
+                <h3 class="film-card-title">Unsung Heroes Documentary</h3>
+                <p class="film-card-desc">Emotional story pacing, vintage tone overlays, and high quality audio restoration.</p>
+              </div>
+              <div class="film-meta-row">
+                <span>Documentary</span>
+                <span class="film-duration-badge">⏱ 05:20</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <button class="carousel-nav next" id="carouselNextBtn" aria-label="Next Slide">
+        <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+      </button>
+    </div>
+
+    <div class="carousel-dots" id="carouselDots"></div>
+  </section>
+
   <section id="experience">
     <div class="section-label">Career</div>
     <h2 class="section-title">Work Experience 10 Years</h2>
@@ -1247,7 +2115,7 @@
       <div class="skill-card glass-card reveal">
         <div class="skill-card-icon">🎬</div>
         <div class="skill-card-title">Technical Skills</div>
-        <div class="skill-tags">
+        <div class="skill-tags" id="cms-skills-technical">
           <span class="skill-tag">DaVinci Resolve</span>
           <span class="skill-tag">Final Cut Pro X</span><span class="skill-tag">Premiere Pro</span>
           <span class="skill-tag">Avid Media Composer</span><span class="skill-tag">After Effects</span>
@@ -1261,7 +2129,7 @@
       <div class="skill-card glass-card reveal">
         <div class="skill-card-icon">🤖</div>
         <div class="skill-card-title">AI &amp; Modern Media</div>
-        <div class="skill-tags">
+        <div class="skill-tags" id="cms-skills-ai">
           <span class="skill-tag">AI Video Editing</span><span class="skill-tag">Auto Cuts</span>
           <span class="skill-tag">Scene Detection</span><span class="skill-tag">Midjourney</span>
           <span class="skill-tag">DALL·E</span><span class="skill-tag">AI Voice Generation</span>
@@ -1272,7 +2140,7 @@
       <div class="skill-card glass-card reveal">
         <div class="skill-card-icon">🎯</div>
         <div class="skill-card-title">Core Competencies</div>
-        <div class="skill-tags">
+        <div class="skill-tags" id="cms-skills-core">
           <span class="skill-tag">Non-Linear Editing</span><span class="skill-tag">Color Grading</span>
           <span class="skill-tag">Sound Design</span><span class="skill-tag">Motion Graphics</span>
           <span class="skill-tag">Documentary Editing</span><span class="skill-tag">News Editing</span>
@@ -1283,7 +2151,7 @@
       <div class="skill-card glass-card reveal">
         <div class="skill-card-icon">💡</div>
         <div class="skill-card-title">Personal Skills</div>
-        <div class="skill-tags">
+        <div class="skill-tags" id="cms-skills-personal">
           <span class="skill-tag">Creative Storytelling</span><span class="skill-tag">Attention to Detail</span>
           <span class="skill-tag">Time Management</span><span class="skill-tag">Team Collaboration</span>
           <span class="skill-tag">Adaptability</span><span class="skill-tag">Tight Deadlines</span>
@@ -1295,7 +2163,7 @@
   <section id="education">
     <div class="section-label">Academic</div>
     <h2 class="section-title">Education</h2>
-    <div class="edu-grid">
+    <div class="edu-grid" id="cms-education-list">
       <div class="edu-card glass-card reveal">
         <div class="edu-year">2012 — 2015</div>
         <div class="edu-degree">B.Sc Visual Communication</div>
@@ -1317,10 +2185,54 @@
     </div>
   </section>
 
+
+
+  <!-- Video Lightbox Modal Structure -->
+  <div class="video-modal" id="videoModal">
+    <div class="modal-content-container">
+      <div class="modal-video-pane" id="modalVideoPane">
+        <!-- Thumbnail + play button injected dynamically -->
+      </div>
+      <div class="modal-details-pane">
+        <div class="modal-close-btn" id="modalCloseBtn">✕</div>
+
+        <div class="modal-details-top">
+          <span class="modal-tag" id="modalTag">Category</span>
+          <h2 class="modal-title" id="modalTitle">Video Title</h2>
+          <p class="modal-desc" id="modalDesc">Detailed description of the editing, narrative beats, and client work
+            goes here.</p>
+        </div>
+
+        <ul class="modal-specs-list">
+          <li class="modal-spec-item">
+            <span class="modal-spec-label">Client</span>
+            <span class="modal-spec-value" id="modalClient">Client Name</span>
+          </li>
+          <li class="modal-spec-item">
+            <span class="modal-spec-label">Role</span>
+            <span class="modal-spec-value" id="modalRole">Lead Editor</span>
+          </li>
+          <li class="modal-spec-item">
+            <span class="modal-spec-label">Duration</span>
+            <span class="modal-spec-value" id="modalDuration">00:00</span>
+          </li>
+          <li class="modal-spec-item">
+            <span class="modal-spec-label">Tools</span>
+            <div class="modal-tools-used" id="modalTools">
+              <!-- Tools get dynamically injected -->
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
   <section id="achievements">
     <div class="section-label">Recognition</div>
     <h2 class="section-title">Achievements</h2>
-    <div class="ach-list">
+    <div class="ach-list" id="cms-achievements-list">
       <div class="ach-item glass-card reveal">
         <div class="ach-icon">🥇</div>
         <div class="ach-text">
@@ -1332,10 +2244,9 @@
       <div class="ach-item glass-card reveal">
         <div class="ach-icon">▶️</div>
         <div class="ach-text">
-          <h3>YouTube Channel — Out of Focus</h3>
-          <p>Personal creative channel showcasing independent video projects, experiments in post-production techniques,
-            and original short-form content.</p>
-          <a href="https://www.youtube.com/c/OutofFocus/about" target="_blank" rel="noopener">→ Visit Channel</a>
+          <h3>YouTube Channel — VIDHI</h3>
+          <p>Personal creative channel showcasing 360-degree videos, immersive visual experiences, post-production techniques, and original creative video editing.</p>
+          <a href="https://www.youtube.com/channel/UClFEghqB_mUZPCuXrEKMh0w" target="_blank" rel="noopener">→ Visit Channel</a>
         </div>
       </div>
     </div>
@@ -1350,14 +2261,14 @@
           <div class="contact-item-icon">📱</div>
           <div>
             <div class="contact-item-label">Phone</div>
-            <div class="contact-item-value"><a href="tel:+918110085264">+91 81100 85264</a></div>
+            <div class="contact-item-value"><a href="tel:+918110085264" id="cms-contact-phone-link">+91 81100 85264</a></div>
           </div>
         </div>
         <div class="contact-item glass-card reveal">
           <div class="contact-item-icon">✉️</div>
           <div>
             <div class="contact-item-label">Email</div>
-            <div class="contact-item-value"><a href="mailto:sridharan19@icloud.com">sridharan19@icloud.com</a></div>
+            <div class="contact-item-value"><a href="mailto:sridharan19@icloud.com" id="cms-contact-email-link">sridharan19@icloud.com</a></div>
           </div>
         </div>
         <div class="contact-item glass-card reveal">
@@ -1365,32 +2276,34 @@
           <div>
             <div class="contact-item-label">Blog</div>
             <div class="contact-item-value"><a href="https://sridharan19.blogspot.com"
-                target="_blank">sridharan19.blogspot.com</a></div>
+                target="_blank" id="cms-contact-blog-link">sridharan19.blogspot.com</a></div>
           </div>
         </div>
         <div class="contact-item glass-card reveal">
           <div class="contact-item-icon">📍</div>
           <div>
             <div class="contact-item-label">Location</div>
-            <div class="contact-item-value">Puducherry, India</div>
+            <div class="contact-item-value" id="cms-contact-location">Puducherry, India</div>
           </div>
         </div>
       </div>
       <div class="social-links reveal">
         <div class="social-title">Social Media</div>
-        <a href="https://www.youtube.com/c/OutofFocus/about" class="social-item glass-card" target="_blank">
-          <span class="social-item-icon">▶</span><span class="social-item-text">YouTube: Out of Focus</span>
+        <a href="https://www.youtube.com/channel/UClFEghqB_mUZPCuXrEKMh0w" class="social-item glass-card" target="_blank" id="cms-social-youtube">
+          <span class="social-item-icon">▶</span><span class="social-item-text">YouTube: VIDHI</span>
         </a>
-        <a href="https://www.facebook.com/sridharan19/" class="social-item glass-card" target="_blank">
-          <span class="social-item-icon">f</span><span class="social-item-text">https://www.facebook.com</span>
+        <a href="https://www.instagram.com/vidhi.360.videos/reels/" class="social-item glass-card" target="_blank" id="cms-social-instagram">
+          <span class="social-item-icon">📸</span><span class="social-item-text">Instagram: @vidhi.360.videos</span>
         </a>
-        <a href="https://x.com/M_sridharan19" class="social-item glass-card" target="_blank">
+        <a href="https://www.facebook.com/profile.php?id=61590363465464" class="social-item glass-card" target="_blank" id="cms-social-facebook">
+          <span class="social-item-icon">f</span><span class="social-item-text">Facebook: Vidhi 360 Videos</span>
+        </a>
+        <a href="https://x.com/M_sridharan19" class="social-item glass-card" target="_blank" id="cms-social-twitter">
           <span class="social-item-icon">𝕏</span><span class="social-item-text">twitter.com</span>
         </a>
-        <a href="https://www.linkedin.com/in/sridharan-m-231b71ba" class="social-item glass-card" target="_blank">
+        <a href="https://www.linkedin.com/in/sridharan-m-231b71ba" class="social-item glass-card" target="_blank" id="cms-social-linkedin">
           <span class="social-item-icon">in</span><span class="social-item-text">www.linkedin.com</span>
         </a>
-
       </div>
     </div>
     <div class="info-strip reveal">
@@ -1422,6 +2335,10 @@
     <div class="footer-copy">© 2024 · Post-Production Specialist · Puducherry, India</div>
   </footer>
 
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+
   <script>
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -1434,6 +2351,609 @@
         card.style.transitionDelay = `${i * 0.1}s`;
       });
     });
+
+
+
+    // ==========================================
+    // Video Lightbox Modal Controller JS
+    // ==========================================
+    const videoModal = document.getElementById('videoModal');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
+    const videoPane = document.querySelector('.modal-video-pane');
+
+    const modalTag = document.getElementById('modalTag');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDesc = document.getElementById('modalDesc');
+    const modalClient = document.getElementById('modalClient');
+    const modalRole = document.getElementById('modalRole');
+    const modalDuration = document.getElementById('modalDuration');
+    const modalTools = document.getElementById('modalTools');
+
+    // Open Modal function
+    function setupLightboxListeners() {
+      const modalCards = document.querySelectorAll('.film-card');
+      modalCards.forEach(card => {
+        card.addEventListener('click', () => {
+          const ytId = card.dataset.ytId;
+          const vimeoId = card.dataset.vimeoId;
+          const fbUrl = card.dataset.fbUrl;
+          const instaUrl = card.dataset.instaUrl;
+          const title = card.dataset.title;
+          const desc = card.dataset.description;
+          const client = card.dataset.client;
+          const role = card.dataset.role;
+          const duration = card.dataset.duration;
+          const category = card.querySelector('.film-card-category').textContent;
+          const toolsList = card.dataset.tools.split(',');
+
+          // Fill Text details
+          modalTitle.textContent = title;
+          modalTag.textContent = category;
+          modalDesc.textContent = desc;
+          modalClient.textContent = client;
+          modalRole.textContent = role;
+          modalDuration.textContent = duration;
+
+          // Fill Tools list
+          modalTools.innerHTML = '';
+          toolsList.forEach(tool => {
+            if (tool.trim()) {
+              const badge = document.createElement('span');
+              badge.className = 'modal-tool-badge';
+              badge.textContent = tool.trim();
+              modalTools.appendChild(badge);
+            }
+          });
+
+          if (vimeoId) {
+            // Vimeo card — embed directly as an iframe
+            videoPane.innerHTML = `
+              <iframe
+                src="https://player.vimeo.com/video/${vimeoId}?autoplay=1&color=00f0ff&title=0&byline=0&portrait=0"
+                style="width:100%;height:100%;border:none;border-radius:12px;"
+                allow="autoplay; fullscreen; picture-in-picture"
+                allowfullscreen
+                title="${title}"
+              ></iframe>
+            `;
+            videoPane.onclick = null;
+          } else if (ytId) {
+            // YouTube card — show thumbnail + click to open
+            videoPane.innerHTML = `
+              <img class="modal-yt-thumb"
+                   src="https://img.youtube.com/vi/${ytId}/maxresdefault.jpg"
+                   onerror="this.src='https://img.youtube.com/vi/${ytId}/hqdefault.jpg'"
+                   alt="${title} thumbnail">
+              <div class="modal-play-btn">
+                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+              <div class="modal-yt-label">
+                <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-2.23 1 1 0 00-.84-.46H9a1 1 0 00-.84.46A4.83 4.83 0 014.41 6.69 2 2 0 002 8.67v8.66A2 2 0 004 19.33h16a2 2 0 002-2V8.67a2 2 0 00-2.41-1.98zM10 15V9l6 3z"/></svg>
+                Click to watch on YouTube
+              </div>
+            `;
+            videoPane.onclick = () => window.open('https://www.youtube.com/watch?v=' + ytId, '_blank');
+          } else if (fbUrl) {
+            // Facebook card
+            videoPane.innerHTML = `
+              <img class="modal-yt-thumb"
+                   src="${card.querySelector('.film-thumb').src}"
+                   alt="${title} thumbnail">
+              <div class="modal-play-btn">
+                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+              <div class="modal-yt-label">
+                Click to watch on Facebook
+              </div>
+            `;
+            videoPane.onclick = () => window.open(fbUrl, '_blank');
+          } else if (instaUrl) {
+            // Instagram card
+            videoPane.innerHTML = `
+              <img class="modal-yt-thumb"
+                   src="${card.querySelector('.film-thumb').src}"
+                   alt="${title} thumbnail">
+              <div class="modal-play-btn">
+                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+              <div class="modal-yt-label">
+                Click to watch on Instagram
+              </div>
+            `;
+            videoPane.onclick = () => window.open(instaUrl, '_blank');
+          }
+
+          // Show modal
+          videoModal.classList.add('active');
+        });
+      });
+    }
+
+    // Initialize for static cards
+    setupLightboxListeners();
+
+    // Close Modal function
+    const closeModal = () => {
+      videoModal.classList.remove('active');
+      videoPane.onclick = null;
+      setTimeout(() => {
+        videoPane.innerHTML = '';
+      }, 400);
+    };
+
+    modalCloseBtn.addEventListener('click', closeModal);
+
+    // Close on clicking backdrop
+    videoModal.addEventListener('click', (e) => {
+      if (e.target === videoModal) {
+        closeModal();
+      }
+    });
+
+    // Close on ESC keypress
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && videoModal.classList.contains('active')) {
+        closeModal();
+      }
+    });
+
+    // Apply staggered delays for carousel cards
+    document.querySelectorAll('.carousel-track').forEach(grid => {
+      grid.querySelectorAll('.reveal').forEach((card, i) => {
+        card.style.transitionDelay = `${i * 0.08}s`;
+      });
+    });
+
+    // ==========================================
+    // Interactive Portfolio Carousel JS
+    // ==========================================
+    const track = document.getElementById('carouselTrack');
+    const wrapper = document.getElementById('carouselTrackWrapper');
+    const prevBtn = document.getElementById('carouselPrevBtn');
+    const nextBtn = document.getElementById('carouselNextBtn');
+    const dotsContainer = document.getElementById('carouselDots');
+    let cards = Array.from(track.querySelectorAll('.carousel-card'));
+
+    let currentIndex = 0;
+    let cardsPerView = 3;
+    let isDragging = false;
+    let startX = 0;
+    let currentTranslate = 0;
+    let prevTranslate = 0;
+    let animationID = 0;
+
+    // Calculate cards per view based on window width
+    function calculateCardsPerView() {
+      const width = window.innerWidth;
+      if (width <= 768) {
+        cardsPerView = 1;
+      } else if (width <= 1024) {
+        cardsPerView = 2;
+      } else {
+        cardsPerView = 3;
+      }
+    }
+
+    // Initialize dots indicators
+    function initDots() {
+      dotsContainer.innerHTML = '';
+      const totalPages = cards.length - cardsPerView + 1;
+      if (totalPages <= 1) return;
+
+      for (let i = 0; i < totalPages; i++) {
+        const dot = document.createElement('div');
+        dot.className = `carousel-dot ${i === 0 ? 'active' : ''}`;
+        dot.addEventListener('click', () => {
+          currentIndex = i;
+          slideToIndex(currentIndex);
+        });
+        dotsContainer.appendChild(dot);
+      }
+    }
+
+    // Slide to index
+    function slideToIndex(index) {
+      const cardWidth = cards[0].offsetWidth;
+      const gap = 24; // matches CSS gap
+      
+      // Bound checking
+      const maxIndex = cards.length - cardsPerView;
+      if (index < 0) index = 0;
+      if (index > maxIndex) index = maxIndex;
+      currentIndex = index;
+
+      currentTranslate = -currentIndex * (cardWidth + gap);
+      prevTranslate = currentTranslate;
+      track.style.transform = `translateX(${currentTranslate}px)`;
+
+      // Update Nav Buttons
+      if (prevBtn && nextBtn) {
+        if (currentIndex === 0) {
+          prevBtn.classList.add('disabled');
+        } else {
+          prevBtn.classList.remove('disabled');
+        }
+
+        if (currentIndex === maxIndex) {
+          nextBtn.classList.add('disabled');
+        } else {
+          nextBtn.classList.remove('disabled');
+        }
+      }
+
+      // Update active dot
+      const dots = dotsContainer.querySelectorAll('.carousel-dot');
+      dots.forEach((dot, idx) => {
+        if (idx === currentIndex) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
+        }
+      });
+    }
+
+    // Set up click handlers for next/prev buttons
+    if (prevBtn && nextBtn) {
+      prevBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+          slideToIndex(currentIndex - 1);
+        }
+      });
+
+      nextBtn.addEventListener('click', () => {
+        const maxIndex = cards.length - cardsPerView;
+        if (currentIndex < maxIndex) {
+          slideToIndex(currentIndex + 1);
+        }
+      });
+    }
+
+    // Resize Handler
+    window.addEventListener('resize', () => {
+      calculateCardsPerView();
+      initDots();
+      slideToIndex(currentIndex);
+    });
+
+    // Touch & Mouse Drag / Swipe Implementation
+    wrapper.addEventListener('mousedown', dragStart);
+    wrapper.addEventListener('touchstart', dragStart, { passive: true });
+    wrapper.addEventListener('mouseup', dragEnd);
+    wrapper.addEventListener('touchend', dragEnd);
+    wrapper.addEventListener('mousemove', dragMove);
+    wrapper.addEventListener('touchmove', dragMove, { passive: true });
+    wrapper.addEventListener('mouseleave', dragEnd);
+
+    function dragStart(event) {
+      isDragging = true;
+      startX = getPositionX(event);
+      track.style.transition = 'none'; // pause transition during drag
+      animationID = requestAnimationFrame(dragAnimation);
+    }
+
+    function dragMove(event) {
+      if (!isDragging) return;
+      const currentX = getPositionX(event);
+      const diff = currentX - startX;
+      
+      // Slow down dragging at borders (rubber band effect)
+      const maxIndex = cards.length - cardsPerView;
+      const cardWidth = cards[0].offsetWidth;
+      const gap = 24;
+      const limit = -maxIndex * (cardWidth + gap);
+      
+      let targetTranslate = prevTranslate + diff;
+      if (targetTranslate > 0) {
+        targetTranslate = diff * 0.3; // ease overflow on left
+      } else if (targetTranslate < limit) {
+        targetTranslate = limit + (targetTranslate - limit) * 0.3; // ease overflow on right
+      }
+      
+      currentTranslate = targetTranslate;
+    }
+
+    function dragEnd() {
+      if (!isDragging) return;
+      isDragging = false;
+      cancelAnimationFrame(animationID);
+      track.style.transition = 'transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)';
+
+      const movedBy = currentTranslate - prevTranslate;
+      const cardWidth = cards[0].offsetWidth;
+      
+      // Threshold to trigger slide change (15% of slide width)
+      const threshold = cardWidth * 0.15;
+
+      if (movedBy < -threshold && currentIndex < cards.length - cardsPerView) {
+        currentIndex += 1;
+      } else if (movedBy > threshold && currentIndex > 0) {
+        currentIndex -= 1;
+      }
+
+      slideToIndex(currentIndex);
+    }
+
+    function getPositionX(event) {
+      return event.type.includes('touch') ? event.touches[0].clientX : event.clientX;
+    }
+
+    function dragAnimation() {
+      if (isDragging) {
+        track.style.transform = `translateX(${currentTranslate}px)`;
+        requestAnimationFrame(dragAnimation);
+      }
+    }
+
+    // Initialize
+    calculateCardsPerView();
+    initDots();
+    slideToIndex(0);
+
+    // Make sure new carousel reveal elements are observed
+    document.querySelectorAll('#portfolio-carousel .reveal').forEach(el => observer.observe(el));
+
+    // ─── Firebase Integration for Live Portfolio Data ───
+    const firebaseConfig = {
+      apiKey: "AIzaSyCtcAugsTV6eV6r1yjaISZ6Cie72LUXdDw",
+      authDomain: "sridharan-resumeshowcase.firebaseapp.com",
+      projectId: "sridharan-resumeshowcase",
+      storageBucket: "sridharan-resumeshowcase.firebasestorage.app",
+      messagingSenderId: "992439230623",
+      appId: "1:992439230623:web:f5798c0acc1f36787ac2aa",
+      measurementId: "G-1Y9H9WTQ3P",
+      databaseURL: "https://sridharan-resumeshowcase-default-rtdb.asia-southeast1.firebasedatabase.app/"
+    };
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function escapeAttr(str) {
+      if (!str) return '';
+      return str.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    function getThumbUrl(project) {
+      if (project.customThumb) return project.customThumb;
+      if (project.videoSource === 'youtube') {
+        return `https://img.youtube.com/vi/${project.videoId}/maxresdefault.jpg`;
+      } else if (project.videoSource === 'vimeo') {
+        return `https://vumbnail.com/${project.videoId}.jpg`;
+      }
+      return '';
+    }
+
+    function reinitCarousel() {
+      // Re-query cards
+      cards = Array.from(track.querySelectorAll('.carousel-card'));
+      
+      // Re-observe reveal cards and apply delay
+      track.querySelectorAll('.reveal').forEach((card, i) => {
+        card.style.transitionDelay = `${i * 0.08}s`;
+        observer.observe(card);
+      });
+
+      calculateCardsPerView();
+      initDots();
+      slideToIndex(0);
+    }
+
+    function renderDynamicProjects(projectList) {
+      if (!projectList || projectList.length === 0) return;
+
+      track.innerHTML = projectList.map((p) => {
+        const ytIdAttr = p.videoSource === 'youtube' ? `data-yt-id="${p.videoId}"` : '';
+        const vimeoIdAttr = p.videoSource === 'vimeo' ? `data-vimeo-id="${p.videoId}"` : '';
+        const fbUrlAttr = p.videoSource === 'facebook' ? `data-fb-url="${p.videoId}"` : '';
+        const instaUrlAttr = p.videoSource === 'instagram' ? `data-insta-url="${p.videoId}"` : '';
+        const thumbUrl = getThumbUrl(p);
+
+        return `
+          <div class="carousel-card film-card glass-card reveal" data-category="${escapeAttr(p.category)}"
+            ${ytIdAttr} ${vimeoIdAttr} ${fbUrlAttr} ${instaUrlAttr}
+            data-title="${escapeAttr(p.title)}" data-client="${escapeAttr(p.client)}"
+            data-role="${escapeAttr(p.role)}" data-tools="${escapeAttr(p.tools)}"
+            data-duration="${escapeAttr(p.duration)}"
+            data-description="${escapeAttr(p.description)}">
+            <div class="sprocket-strip">
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+            </div>
+            <div class="film-thumb-container">
+              <img class="film-thumb" src="${thumbUrl}" alt="${escapeAttr(p.title)} Thumbnail" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22160%22 height=%2290%22><rect fill=%22%23111827%22 width=%22160%22 height=%2290%22/><text x=%2250%25%22 y=%2250%25%22 fill=%22%239ca3af%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22 font-size=%2212%22>No Preview</text></svg>'">
+              <div class="film-thumb-overlay"></div>
+              <div class="play-btn-overlay">
+                <svg viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </div>
+            </div>
+            <div class="sprocket-strip sprocket-strip-bottom">
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+              <div class="sprocket-hole"></div>
+            </div>
+            <div class="film-card-footer">
+              <div>
+                <span class="film-card-category">${escapeHtml(p.categoryLabel || p.category)}</span>
+                <h3 class="film-card-title">${escapeHtml(p.title)}</h3>
+                <p class="film-card-desc">${escapeHtml(p.shortDesc || '')}</p>
+              </div>
+              <div class="film-meta-row">
+                <span>${escapeHtml(p.metaLabel || '')}</span>
+                <span class="film-duration-badge">⏱ ${escapeHtml(p.duration)}</span>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      setupLightboxListeners();
+      reinitCarousel();
+    }
+
+    function renderDynamicProfile(profile) {
+      if (!profile) return;
+
+      // 1. Hero & About
+      if (profile.hero) {
+        const h = profile.hero;
+        if (h.name && document.getElementById('cms-hero-name')) {
+          document.getElementById('cms-hero-name').innerHTML = h.name;
+        }
+        if (h.title && document.getElementById('cms-hero-title')) {
+          document.getElementById('cms-hero-title').textContent = h.title;
+        }
+        if (h.tag && document.getElementById('cms-hero-tag')) {
+          document.getElementById('cms-hero-tag').textContent = h.tag;
+        }
+        if (h.desc && document.getElementById('cms-hero-desc')) {
+          document.getElementById('cms-hero-desc').textContent = h.desc;
+        }
+        if (h.navLogo && document.getElementById('cms-nav-logo')) {
+          document.getElementById('cms-nav-logo').textContent = h.navLogo;
+        }
+      }
+
+      // 2. Skills
+      if (profile.skills) {
+        const s = profile.skills;
+        const renderSkillsWrapper = (elementId, tagsString) => {
+          const wrapper = document.getElementById(elementId);
+          if (wrapper && tagsString) {
+            const tags = tagsString.split(',').map(t => t.trim()).filter(t => t);
+            wrapper.innerHTML = tags.map(tag => `<span class="skill-tag">${escapeHtml(tag)}</span>`).join('');
+          }
+        };
+        renderSkillsWrapper('cms-skills-technical', s.technical);
+        renderSkillsWrapper('cms-skills-ai', s.ai);
+        renderSkillsWrapper('cms-skills-core', s.core);
+        renderSkillsWrapper('cms-skills-personal', s.personal);
+      }
+
+      // 3. Education
+      if (profile.education && Array.isArray(profile.education)) {
+        const eduGrid = document.getElementById('cms-education-list');
+        if (eduGrid) {
+          eduGrid.innerHTML = profile.education.map(e => {
+            const scoreHtml = e.score ? `<span class="edu-score">🏆 ${escapeHtml(e.score)}</span>` : '';
+            return `
+              <div class="edu-card glass-card reveal visible">
+                <div class="edu-year">${escapeHtml(e.year)}</div>
+                <div class="edu-degree">${escapeHtml(e.degree)}</div>
+                <div class="edu-institution">${escapeHtml(e.institution)}</div>
+                ${scoreHtml}
+              </div>
+            `;
+          }).join('');
+          eduGrid.querySelectorAll('.reveal').forEach((card, i) => {
+            card.style.transitionDelay = `${i * 0.1}s`;
+            observer.observe(card);
+          });
+        }
+      }
+
+      // 4. Achievements
+      if (profile.achievements && Array.isArray(profile.achievements)) {
+        const achList = document.getElementById('cms-achievements-list');
+        if (achList) {
+          achList.innerHTML = profile.achievements.map(a => {
+            const linkHtml = a.linkUrl ? `<a href="${escapeAttr(a.linkUrl)}" target="_blank" rel="noopener">${escapeHtml(a.linkLabel || '→ Visit Link')}</a>` : '';
+            return `
+              <div class="ach-item glass-card reveal visible">
+                <div class="ach-icon">${escapeHtml(a.icon || '🏆')}</div>
+                <div class="ach-text">
+                  <h3>${escapeHtml(a.title)}</h3>
+                  <p>${escapeHtml(a.description)}</p>
+                  ${linkHtml}
+                </div>
+              </div>
+            `;
+          }).join('');
+          achList.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        }
+      }
+
+      // 5. Contact Details
+      if (profile.contact) {
+        const c = profile.contact;
+        const phoneLink = document.getElementById('cms-contact-phone-link');
+        if (phoneLink && c.phone) {
+          phoneLink.href = `tel:${c.phone.replace(/\s+/g, '')}`;
+          phoneLink.textContent = c.phone;
+        }
+        const emailLink = document.getElementById('cms-contact-email-link');
+        if (emailLink && c.email) {
+          emailLink.href = `mailto:${c.email}`;
+          emailLink.textContent = c.email;
+        }
+        const blogLink = document.getElementById('cms-contact-blog-link');
+        if (blogLink && c.blog) {
+          blogLink.href = c.blog.startsWith('http') ? c.blog : `https://${c.blog}`;
+          blogLink.textContent = c.blog.replace(/(^\w+:|^)\/\//, '');
+        }
+        const locVal = document.getElementById('cms-contact-location');
+        if (locVal && c.location) {
+          locVal.textContent = c.location;
+        }
+      }
+
+      // 6. Social Links
+      if (profile.socials) {
+        const soc = profile.socials;
+        const setSocialLink = (elementId, url, labelPrefix) => {
+          const link = document.getElementById(elementId);
+          if (link && url) {
+            link.href = url;
+            const textSpan = link.querySelector('.social-item-text');
+            if (textSpan) {
+              textSpan.textContent = labelPrefix + url.split('/').pop().replace(/\/$/, '');
+            }
+          }
+        };
+        setSocialLink('cms-social-youtube', soc.youtube, 'YouTube: ');
+        setSocialLink('cms-social-instagram', soc.instagram, 'Instagram: ');
+        setSocialLink('cms-social-facebook', soc.facebook, 'Facebook: ');
+        setSocialLink('cms-social-twitter', soc.twitter, 'Twitter: ');
+        setSocialLink('cms-social-linkedin', soc.linkedin, 'LinkedIn: ');
+      }
+    }
+
+    // Initialize Firebase and set up listeners
+    try {
+      firebase.initializeApp(firebaseConfig);
+      const database = firebase.database();
+      
+      // Sync Projects
+      database.ref('projects').on('value', (snapshot) => {
+        const data = snapshot.val();
+        if (data && Array.isArray(data)) {
+          renderDynamicProjects(data);
+        }
+      });
+
+      // Sync Profile Content
+      database.ref('profile').on('value', (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+          renderDynamicProfile(data);
+        }
+      });
+    } catch (e) {
+      console.warn("Firebase failed to load/init: ", e);
+    }
   </script>
 </body>
 
