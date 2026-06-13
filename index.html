@@ -1017,10 +1017,67 @@
       .hero {
         padding: 100px 5vw 40px;
         min-height: auto;
+        flex-direction: column-reverse;
+        text-align: center;
+        gap: 32px;
+      }
+
+      .hero-content {
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .hero-tag {
+        justify-content: center;
+      }
+
+      .hero-desc {
+        margin: 0 auto 30px;
+      }
+
+      .hero-cta {
+        justify-content: center;
+      }
+
+      .hero-stats {
+        justify-content: center;
       }
 
       .hero-visual {
-        display: none;
+        display: block;
+        position: relative;
+        right: auto;
+        top: auto;
+        transform: none;
+        margin: 0 auto;
+      }
+
+      .avatar-frame {
+        width: 220px;
+        height: 220px;
+      }
+
+      .avatar-img {
+        width: 220px;
+        height: 220px;
+        border-width: 3px;
+      }
+
+      .avatar-ring {
+        inset: -12px;
+      }
+
+      .avatar-ring-2 {
+        inset: -22px;
+      }
+
+      .avatar-badge {
+        bottom: 12px;
+        right: 4px;
+        font-size: 10px;
+        padding: 6px 12px;
       }
 
       .film-strip {
@@ -1042,10 +1099,7 @@
       }
 
       nav {
-        border-radius: 0;
-        width: 100%;
-        top: 0;
-        padding: 10px 5vw;
+        display: none;
       }
 
       .section-title {
