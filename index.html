@@ -180,9 +180,11 @@
       min-height: auto;
       display: flex;
       align-items: center;
+      justify-content: space-between;
       overflow: hidden;
-      padding: 130px 6vw 50px 140px;
+      padding: 130px 140px 50px 140px;
       z-index: 1;
+      gap: 40px;
     }
 
     .hero-bg {
@@ -199,13 +201,11 @@
       bottom: 0;
       width: 100px;
       background: rgba(255, 255, 255, 0.01);
+      overflow: hidden;
       display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      align-items: center;
-      padding: 20px 0;
-      gap: 0;
+      justify-content: center;
       backdrop-filter: blur(4px);
+      z-index: 1;
     }
 
     .film-strip-right {
@@ -216,6 +216,31 @@
     .film-strip-left {
       left: 0;
       border-right: 1px solid var(--border);
+    }
+
+    .film-strip-track {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      animation: film-scroll 24s linear infinite;
+      padding: 20px 0;
+    }
+
+    .film-strip-left .film-strip-track {
+      animation-direction: normal;
+    }
+
+    .film-strip-right .film-strip-track {
+      animation-direction: reverse;
+    }
+
+    @keyframes film-scroll {
+      0% {
+        transform: translateY(0);
+      }
+      100% {
+        transform: translateY(-50%);
+      }
     }
 
     .film-hole {
@@ -233,7 +258,8 @@
     .hero-content {
       position: relative;
       z-index: 2;
-      max-width: 700px;
+      max-width: 650px;
+      flex: 1;
     }
 
     .hero-tag {
@@ -376,11 +402,9 @@
     }
 
     .hero-visual {
-      position: absolute;
-      right: 140px;
-      top: 50%;
-      transform: translateY(-50%);
+      position: relative;
       z-index: 2;
+      flex-shrink: 0;
       animation: fadeIn 1.2s 0.4s ease both;
     }
 
@@ -448,6 +472,7 @@
       text-transform: uppercase;
       z-index: 2;
       box-shadow: 0 10px 20px rgba(245, 158, 11, 0.4);
+      animation: badge-pulse 2s infinite ease-in-out;
     }
 
     /* Sections */
@@ -626,6 +651,8 @@
     .glass-card:hover::before {
       opacity: 1;
     }
+
+
 
     /* Skill Card Specifics */
     .skill-card-icon {
@@ -1013,7 +1040,34 @@
       }
     }
 
-    @media (max-width: 900px) {
+    @keyframes play-pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(0, 240, 255, 0.5);
+      }
+      70% {
+        box-shadow: 0 0 0 16px rgba(0, 240, 255, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(0, 240, 255, 0);
+      }
+    }
+
+    @keyframes badge-pulse {
+      0% {
+        transform: scale(1);
+        box-shadow: 0 10px 20px rgba(245, 158, 11, 0.4);
+      }
+      50% {
+        transform: scale(1.05);
+        box-shadow: 0 10px 25px rgba(245, 158, 11, 0.7), 0 0 15px rgba(245, 158, 11, 0.4);
+      }
+      100% {
+        transform: scale(1);
+        box-shadow: 0 10px 20px rgba(245, 158, 11, 0.4);
+      }
+    }
+
+    @media (max-width: 1200px) {
       .hero {
         padding: 100px 5vw 40px;
         min-height: auto;
@@ -1299,6 +1353,7 @@
       opacity: 0.8;
       box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
       transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      animation: play-pulse 2s infinite ease-in-out;
     }
 
     .play-btn-overlay svg {
@@ -1387,6 +1442,7 @@
     }
 
     .film-card:hover .play-btn-overlay {
+      animation: none;
       background: var(--cyan);
       color: var(--navy);
       transform: translate(-50%, -50%) scale(1.1);
@@ -1478,9 +1534,11 @@
       justify-content: center;
       box-shadow: 0 0 30px rgba(0, 245, 212, 0.5), 0 0 60px rgba(139, 92, 246, 0.3);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: play-pulse 2s infinite ease-in-out;
     }
 
     .modal-video-pane:hover .modal-play-btn {
+      animation: none;
       transform: scale(1.15);
       box-shadow: 0 0 40px rgba(0, 245, 212, 0.8), 0 0 80px rgba(139, 92, 246, 0.5);
     }
@@ -1633,7 +1691,7 @@
     }
 
     /* Video Lightbox Responsiveness */
-    @media (max-width: 900px) {
+    @media (max-width: 1200px) {
       .modal-content-container {
         grid-template-columns: 1fr;
         max-height: 90vh;
@@ -1868,36 +1926,66 @@
 
     <!-- Left Film Strip -->
     <div class="film-strip film-strip-left">
-      <div class="film-hole"></div>
-      <div class="film-hole"></div>
-      <div class="film-hole"></div>
-      <div class="film-hole"></div>
-      <div class="film-hole"></div>
-      <div class="film-hole"></div>
-      <div class="film-hole"></div>
-      <div class="film-hole"></div>
-      <div class="film-hole"></div>
-      <div class="film-hole"></div>
-      <div class="film-hole"></div>
-      <div class="film-hole"></div>
-      <div class="film-hole"></div>
+      <div class="film-strip-track">
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+      </div>
     </div>
 
     <!-- Right Film Strip -->
     <div class="film-strip film-strip-right">
-      <div class="film-hole"></div>
-      <div class="film-hole"></div>
-      <div class="film-hole"></div>
-      <div class="film-hole"></div>
-      <div class="film-hole"></div>
-      <div class="film-hole"></div>
-      <div class="film-hole"></div>
-      <div class="film-hole"></div>
-      <div class="film-hole"></div>
-      <div class="film-hole"></div>
-      <div class="film-hole"></div>
-      <div class="film-hole"></div>
-      <div class="film-hole"></div>
+      <div class="film-strip-track">
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+        <div class="film-hole"></div>
+      </div>
     </div>
   </section>
 
