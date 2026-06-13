@@ -1009,10 +1009,7 @@
 
         <div class="form-section-label" style="grid-column: 1 / -1;">👤 Hero & General Info</div>
 
-        <div class="form-group">
-          <label class="form-label" for="profNavLogo">Nav Logo Text *</label>
-          <input class="form-input" type="text" id="profNavLogo" placeholder="e.g. M.Sridharan" required>
-        </div>
+
         <div class="form-group">
           <label class="form-label" for="profHeroTag">Hero Sub-label/Location *</label>
           <input class="form-input" type="text" id="profHeroTag"
@@ -1400,7 +1397,7 @@
     // ─── Default Profile Data ───
     const DEFAULT_PROFILE = {
       hero: {
-        navLogo: "M.Sridharan",
+        navLogo: "",
         tag: "Post-Production Specialist · Puducherry, India",
         name: "M. <span>SRIDHARAN</span>",
         title: "Video Editor & AI-Assisted Media Producer",
@@ -2151,7 +2148,9 @@ ${sprocketHoles}
     function populateProfileFields(profile) {
       if (!profile) return;
       if (profile.hero) {
-        document.getElementById('profNavLogo').value = profile.hero.navLogo || '';
+        if (document.getElementById('profNavLogo')) {
+          document.getElementById('profNavLogo').value = profile.hero.navLogo || '';
+        }
         document.getElementById('profHeroTag').value = profile.hero.tag || '';
         document.getElementById('profHeroName').value = profile.hero.name || '';
         document.getElementById('profHeroTitle').value = profile.hero.title || '';
@@ -2258,7 +2257,7 @@ ${sprocketHoles}
 
       const profile = {
         hero: {
-          navLogo: document.getElementById('profNavLogo').value.trim(),
+          navLogo: document.getElementById('profNavLogo') ? document.getElementById('profNavLogo').value.trim() : '',
           tag: document.getElementById('profHeroTag').value.trim(),
           name: document.getElementById('profHeroName').value.trim(),
           title: document.getElementById('profHeroTitle').value.trim(),
